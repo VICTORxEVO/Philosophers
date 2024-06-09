@@ -92,9 +92,10 @@
 
 
 // structs
-struct s_all t_all;
-struct s_philo t_philo;
-struct s_death t_death;
+struct s_all;
+struct s_philo;
+struct s_death;
+struct s_err;
 
 typedef struct s_philo
 {
@@ -102,6 +103,7 @@ typedef struct s_philo
     int meal;
     long long last_meal;
     pthread_t   t;
+    pthread_t   t_parent;
     bool    finished;
     struct s_all *ccu;
     int r_fork;
@@ -116,10 +118,8 @@ typedef struct s_death
 
 typedef struct s_err
 {
-    int exit_code;
     char *err_str;
-}   t_err;
-
+}       t_err;
 
 typedef struct s_all
 {
@@ -138,11 +138,33 @@ typedef struct s_all
 
 
 
+//parsing functions
+bool    parser(int ac, char *av[], t_all *ccu);
+
+//external functions
+int     ft_atoi(const char *str);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t n, size_t size);
+int     ft_isdigit(int x);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	puterr(char *s);
+char	*ft_strdup(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+size_t	ft_strlen(const char *str);
 
 
 
 
 
+
+
+
+//clear and exit funtions
+void    destroy(t_all *ccu);
+int     exit_v2(t_all *ccu);
+void    puterr_msg(t_err *err, char flag);
+void    puterr_msg2(t_err *err, char *str, char flag);
 
 
 

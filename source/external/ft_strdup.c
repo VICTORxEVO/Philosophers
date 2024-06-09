@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysbai-jo <ysbai-jo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 11:55:25 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2023/11/25 11:18:02 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/06/08 19:00:22 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
 char	*ft_strdup(const char *s)
 {

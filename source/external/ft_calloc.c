@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysbai-jo <ysbai-jo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 11:48:04 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2023/12/07 17:55:53 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:59:24 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
 void	*ft_calloc(size_t n, size_t size)
 {
 	void	*ptr;
 
-	if (n && (size > SIZE_MAX / n))
-		return (NULL);
 	ptr = malloc(n * size);
 	if (!ptr)
 		return (NULL);

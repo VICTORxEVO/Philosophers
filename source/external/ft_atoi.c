@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysbai-jo <ysbai-jo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 11:44:59 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2023/11/24 10:40:28 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:59:33 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
 int	ft_atoi(const char *str)
 {

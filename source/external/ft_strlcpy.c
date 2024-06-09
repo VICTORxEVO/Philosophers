@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 11:48:45 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/06/09 12:38:38 by ysbai-jo         ###   ########.fr       */
+/*   Created: 2023/11/21 13:28:56 by ysbai-jo          #+#    #+#             */
+/*   Updated: 2024/06/09 09:35:44 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int x)
+#include "philo.h"
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	return ((x >= '0' && x <= '9') || x == '-' || x == '+');
+	size_t	x;
+
+	x = 0;
+	if (size)
+	{
+		while (src[x] && x < (size - 1))
+		{
+			dest[x] = src[x];
+			x++;
+		}
+		dest[x] = 0;
+	}
+	return (ft_strlen(src));
 }
