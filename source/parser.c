@@ -23,6 +23,7 @@ static bool init(char *av[], t_all *ccu)
         if (ccu->n_meals < 1)
             return (puterr_msg(&ccu->err, 'F'), false);
     }
+    ccu->all_alive = 1;
     return (true);
 }
 

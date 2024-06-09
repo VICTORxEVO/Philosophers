@@ -89,7 +89,7 @@
 #endif
 
 # define MALLOC_ERR "philo: malloc: memory allocation failed"
-
+# define T pthread:
 
 // structs
 struct s_all;
@@ -136,6 +136,9 @@ typedef struct s_all
 }       t_all;
 
 
+//threads function
+void    *life(void *philo);
+void    *philo_parent(void *philo);
 
 
 //parsing functions
@@ -152,12 +155,6 @@ char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlen(const char *str);
-
-
-
-
-
-
 
 
 //clear and exit funtions

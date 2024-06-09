@@ -1,5 +1,16 @@
 #include "philo.h"
 
+bool    create_threads(t_philo *philos, int i, char flag)
+{
+    if (pthread_create(&philos[i].t, (void *)0, life, &philos[i]) != 0)
+        return (puterr_msg(&philos->ccu->err, 'T'), false);
+    if (pthread_create(&philos[i].t_parent, (void *)0, philo_parent, &philos[i]))
+        return (puterr_msg(&philos->ccu->err, 'T'), false);
+    if (pthread_detach(philos[i].t_parent) != 0)
+        return (puterr_msg(&philos->ccu->err, 't'), false);
+    return (true);
+}
+
 bool    ccu_init(t_all *ccu)
 {
     int i;
@@ -18,11 +29,8 @@ bool    ccu_init(t_all *ccu)
         ccu->philos[i].t = malloc(sizeof(pthread_t));
         ccu->philos[i].t_parent = malloc(sizeof(pthread_t));
         if (!ccu->philos[i].t || !ccu->philos[i].t_parent)
+            return (puterr_msg(&ccu->err, 'M'), false);
+        if (!create_threads(ccu->philos, i, 'A'))
             return (false);
-        pthread_create(&ccu->philos[i].t, (void *)0, life, &ccu->philos[i]);
-        pthread_create(&ccu->philos[i].t_parent, (void *)0, philo_parent, &ccu->philos[i]);
-        pthread_detach(ccu->philos[i].t_parent);
     }
-    if (ccu->n_meals > 0)
-
 }
