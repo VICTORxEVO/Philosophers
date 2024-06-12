@@ -1,6 +1,6 @@
 #include "philo.h"
 
-bool    create_threads(t_philo *philos, int i, char flag)
+static bool    create_threads(t_philo *philos, int i, char flag)
 {
     if (pthread_create(&philos[i].t, (void *)0, life, &philos[i]) != 0)
         return (puterr_msg(&philos->ccu->err, 'T'), false);
@@ -8,6 +8,19 @@ bool    create_threads(t_philo *philos, int i, char flag)
         return (puterr_msg(&philos->ccu->err, 'T'), false);
     if (pthread_detach(philos[i].t_parent) != 0)
         return (puterr_msg(&philos->ccu->err, 't'), false);
+    return (true);
+}
+static bool    init_philo(t_philo *philo, int i)
+{
+    philo->id = i;
+    philo->l_fork = i;
+    philo->r_fork= i + 1;
+    if (i == philo->ccu->n_philo - 1)
+        philo->r_fork = 0;
+    philo->t = malloc(sizeof(pthread_t));
+    philo->t_parent = malloc(sizeof(pthread_t));
+    if (!philo->t || philo->t_parent)
+        return (puterr_msg(&philo->ccu->err, 'M'), false);
     return (true);
 }
 
@@ -19,18 +32,14 @@ bool    ccu_init(t_all *ccu)
     if (!ccu->philos)
         return(false);
     i = -1;
+    ccu->create_t = get_time();
     while (i < ccu->n_philo)
     {
-        ccu->philos[i].id = i;
-        ccu->philos[i].l_fork = i;
-        ccu->philos[i].r_fork = i + 1;
-        if (i == ccu->n_philo - 1)
-            ccu->philos[i].r_fork = 0;
-        ccu->philos[i].t = malloc(sizeof(pthread_t));
-        ccu->philos[i].t_parent = malloc(sizeof(pthread_t));
-        if (!ccu->philos[i].t || !ccu->philos[i].t_parent)
-            return (puterr_msg(&ccu->err, 'M'), false);
+        if (!init_philo(&ccu->philos[i], i));
+            return (false);
+        ccu->philos[i].last_meal = get_time();
         if (!create_threads(ccu->philos, i, 'A'))
             return (false);
     }
+    return (true);
 }

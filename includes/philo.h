@@ -90,6 +90,8 @@
 
 # define MALLOC_ERR "philo: malloc: memory allocation failed"
 # define T pthread:
+# define LOCK pthread_mutex_lock
+# define UNLOCK pthread_mutex_unlock
 
 // structs
 struct s_all;
@@ -128,6 +130,7 @@ typedef struct s_all
     int t_death;
     int n_philo;
     bool all_alive;
+    size_t create_t;
     pthread_mutex_t *forks;
     struct s_death dead;
     struct s_err err;
@@ -162,6 +165,14 @@ void    destroy(t_all *ccu);
 int     exit_v2(t_all *ccu);
 void    puterr_msg(t_err *err, char flag);
 void    puterr_msg2(t_err *err, char *str, char flag);
+
+
+
+//Utils functions
+size_t  get_time(void);
+size_t  get_curr_time(t_philo *philo);
+
+
 
 
 
