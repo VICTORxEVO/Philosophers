@@ -5,7 +5,7 @@ void    *life(void *data)
     t_philo *philo;
 
     philo = (t_philo *)data;
-    while(philo->ccu->all_alive || philo->finished)
+    while(philo->ccu->all_alive && !philo->finished)
     {
         grap_fork(philo->ccu->forks, philo->l_fork);
         if (philo->ccu->n_philo == 1)
@@ -14,8 +14,11 @@ void    *life(void *data)
             return (NULL);
         }
         grap_fork(philo->ccu->forks, philo->r_fork);
-        (eat(philo),down_fork(philo->ccu->forks, philo->l_fork, philo->r_fork));
-        sleep_think(philo);
+        if (!eat(philo))
+            break ;
+        down_fork(philo->ccu->forks, philo->l_fork, philo->r_fork);
+        if (!sleep_think(philo))
+            break ;
     }
     return (NULL);
 }
@@ -27,8 +30,9 @@ void    *philo_parent(void *data)
     philo = (t_philo *)data;
     while(philo->ccu->all_alive || philo->finished)
     {
-        if ((philo->last_meal + philo->ccu->t_death) >= get_time())
+        if ((philo->last_meal + philo->ccu->t_death) < get_time() && philo->ccu->all_alive)
         {
+            printt(philo, 'D');
             philo->ccu->all_alive = false;
             break;
         }

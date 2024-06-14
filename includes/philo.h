@@ -103,9 +103,9 @@ typedef struct s_philo
 {
     int id;
     int meal;
-    long long last_meal;
-    pthread_t   t;
-    pthread_t   t_parent;
+    size_t  last_meal;
+    pthread_t   *t;
+    pthread_t   *t_parent;
     bool    finished;
     struct s_all *ccu;
     int r_fork;
@@ -130,7 +130,7 @@ typedef struct s_all
     int t_death;
     int n_philo;
     bool all_alive;
-    size_t create_t;
+    size_t creation_t;
     pthread_mutex_t *forks;
     struct s_death dead;
     struct s_err err;
@@ -138,14 +138,18 @@ typedef struct s_all
     struct s_philo  *philos;
 }       t_all;
 
-
+ 
 //threads function
 void    *life(void *philo);
 void    *philo_parent(void *philo);
 
+//printing function
+void    printt(t_philo *philo, char flag);
+
 
 //parsing functions
 bool    parser(int ac, char *av[], t_all *ccu);
+bool    ccu_init(t_all *ccu);
 
 //external functions
 int     ft_atoi(const char *str);
@@ -171,10 +175,15 @@ void    puterr_msg2(t_err *err, char *str, char flag);
 //Utils functions
 size_t  get_time(void);
 size_t  get_curr_time(t_philo *philo);
+void    grap_fork(pthread_mutex_t *fork, int i);
+void    down_fork(pthread_mutex_t *fork, int lf, int rf);
+bool    eat(t_philo *philo);
+bool    sleep_think(t_philo *philo);
+bool    wait_pt(t_all *ccu);
 
 
 
 
 
 
-#endif
+#endif 

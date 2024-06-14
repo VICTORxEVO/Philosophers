@@ -30,7 +30,7 @@ void	puterr_msg(t_err *err, char flag)
 	else if (flag == 'M')
 		err->err_str = ft_strdup("malloc: memory allocation failed !!");
 	else if (flag == 'T')
-		err->err_str = ft_strdup("pthread: thread creation failed !!");
+		err->err_str = ft_strdup("pthread: thread or mutex creation failed !!");
 	else if (flag == 't')
 		err->err_str = ft_strdup("pthread: unable to join \
                 or detach a thread !!");

@@ -7,6 +7,8 @@ int main(int ac, char *av[])
 	ccu = ft_calloc(1, sizeof(t_all));
     if (!ccu || !parser(ac, av, ccu) || !ccu_init(ccu))
 		return (exit_v2(ccu));
+	if (!wait_pt(ccu))
+		return (exit_v2(ccu));
 	
 	return 0;
 }

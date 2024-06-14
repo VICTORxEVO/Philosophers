@@ -2,7 +2,7 @@
 
 void    printt(t_philo *philo, char flag)
 {
-    char action;
+    char    *action;
 
     if (flag == 'E')
         action = "is eating";
@@ -10,5 +10,7 @@ void    printt(t_philo *philo, char flag)
         action = "is sleeping";
     else if (flag == 'T')
         action = "is thinking";
-    printf("%zu %d %s", get_curr_time(philo), philo->id + 1, action);
+    else if (flag == 'D')
+        action = "died";
+    printf("%zu\t%d  %s\n", get_curr_time(philo), philo->id + 1, action);
 }

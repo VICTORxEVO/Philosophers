@@ -9,6 +9,14 @@ void    destroy(t_all *ccu)
     i = -1;
     while (ccu->forks && ++i < ccu->n_philo)
         pthread_mutex_destroy(&ccu->forks[i]);
+    i = -1;
+    // while (++i < ccu->n_philo)
+    // {
+    //     if (ccu->philos[i].t)
+    //         free(ccu->philos[i].t);
+    //     if (ccu->philos[i].t_parent)
+    //         free(ccu->philos[i].t);
+    // }
     if (ccu->forks)
         free(ccu->forks);
     if (ccu->philos)
