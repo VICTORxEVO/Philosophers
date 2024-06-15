@@ -1,15 +1,9 @@
-#program name
-NAME=philo
 
 #bonus program name
 NAME_B=philo_bonus
 
 #cc compiler with all flags
 CCF=cc -Wall -Wextra -Werror
-
-#mandatory
-SRC=$(shell find "./source" -type f )
-OBJ=$(SRC:.c=.o)
 
 #bonus
 SRC_B=$(shell find "./source_bonus" -type f )
@@ -23,20 +17,13 @@ ifeq ($(DEBUG), YES)
    GDB = -g
 endif
 
-.PHONY: all clean fclean re clear bonus
+.PHONY: clean fclean re clear bonus
 
-all: $(NAME)
+bonus: $(NAME_B)
 
 
-$(NAME): $(OBJ)
+$(NAME_B): $(OBJ_B)
 		@$(CCF) $(INC) $^ -o $@
-		@echo "compiling"
-		@sleep 0.5
-		@echo "$(NAME) is ready"
-
-
-bonus: $(OBJ_B)
-		@$(CCF) $(INC) $^ -o $(NAME_B)
 		@echo "compiling"
 		@sleep 0.5
 		@echo "$(NAME_B) is ready"
@@ -47,21 +34,21 @@ bonus: $(OBJ_B)
 
 
 clean:
-		@rm -f $(OBJ) $(OBJ_B)
+		@rm -f $(OBJ_B)
 		@echo "cleaning..."
 
 
 fclean: clean
-		@rm -f $(NAME) $(NAME_B)
+		@rm -f $(NAME_B)
 		@echo "cleaning program..."
 
 
 re: fclean all
 
 
-clear: all clean
+clear: clean
 
-bclear: all bonus clean
+bclear: bonus clean
 
 norm :
-		@norminette $(SRC) $(SRC_B) includes/
+		@norminette $(SRC_B) includes/
