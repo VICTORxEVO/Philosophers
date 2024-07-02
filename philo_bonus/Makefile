@@ -6,7 +6,7 @@ NAME_B=philo_bonus
 CCF=cc -Wall -Wextra -Werror
 
 #bonus
-SRC_B=$(shell find "./source_bonus" -type f )
+SRC_B=$(shell find "./source" -type f )
 OBJ_B=$(SRC_B:.c=.o)
 
 #include header
