@@ -19,7 +19,11 @@ bool    eat(t_philo *philo)
     usleep(philo->ccu->t_eat * 1000);
     philo->last_meal = get_time();
     if (philo->ccu->n_meals != -1)
+    {
+        LOCK(&philo->ccu->meal_l);
         philo->meal++;
+        UNLOCK(&philo->ccu->meal_l);
+    }
     return (true);
 }
 

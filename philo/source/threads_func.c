@@ -25,19 +25,23 @@ void    *philo_parent(void *data)
     t_philo *philo;
 
     philo = (t_philo *)data;
-    while(philo->ccu->all_alive || philo->finished)
+    while(true)
     {
+        LOCK(&philo->ccu->checker_l);
         if ((philo->last_meal + philo->ccu->t_death) < get_time() && philo->ccu->all_alive)
         {
             philo->ccu->all_alive = false;
             printt(philo, 'D');
             break;
         }
+        UNLOCK(&philo->ccu->checker_l);
+        LOCK(&philo->ccu->meal_l);
         if (philo->ccu->n_meals != -1 && philo->meal == philo->ccu->n_meals)
         {
             philo->finished = true;
             break;
         }
+        UNLOCK(&philo->ccu->meal_l);
     }
     return (NULL);
 }

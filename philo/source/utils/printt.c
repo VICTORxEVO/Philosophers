@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 08:36:36 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/14 09:25:57 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/14 10:27:11 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	printt(t_philo *philo, char flag)
 		action = "is thinking";
 	else
 		action = "died";
-	LOCK(philo->ccu->locker);
+	LOCK(&philo->ccu->print_l);
 	printf("%zu\t%d  %s\n", get_curr_time(philo), philo->id + 1, action);
-	UNLOCK(philo->ccu->locker);
+	UNLOCK(&philo->ccu->print_l);
 }

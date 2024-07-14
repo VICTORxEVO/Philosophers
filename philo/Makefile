@@ -2,7 +2,7 @@
 NAME=philo
 
 #cc compiler with all flags
-CCF=cc -Wall -Wextra -Werror -fsanitize=thread
+CCF=cc -Wall -Wextra -Werror
 
 #mandatory
 SRC=$(shell find "./source" -type f )
@@ -14,6 +14,7 @@ INC= -I includes
 #debuging
 ifeq ($(DEBUG), YES)
    GDB = -g
+   FTZ = -fsanitize=thread
 endif
 
 .PHONY: all clean fclean re clear
@@ -22,7 +23,7 @@ all: $(NAME)
 
 
 $(NAME): $(OBJ)
-		@$(CCF) $(INC) $^ -o $@
+		@$(CCF) $(FTZ) $(INC) $^ -o $@
 		@echo "compiling"
 		@sleep 0.5
 		@echo "$(NAME) is ready"
