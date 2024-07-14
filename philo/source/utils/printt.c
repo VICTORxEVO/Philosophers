@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 08:36:36 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/06/15 08:36:37 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/14 09:17:41 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	printt(t_philo *philo, char flag)
 		action = "is sleeping";
 	else if (flag == 'T')
 		action = "is thinking";
-	else if (flag == 'D')
+	else
 		action = "died";
 	printf("%zu\t%d  %s\n", get_curr_time(philo), philo->id + 1, action);
 }
