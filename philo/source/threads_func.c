@@ -7,13 +7,10 @@ void    *life(void *data)
     philo = (t_philo *)data;
     while(philo->ccu->all_alive && !philo->finished)
     {
-        grap_fork(philo->ccu->forks, philo->l_fork);
         if (philo->ccu->n_philo == 1)
             return (usleep(10000000), NULL);
-        grap_fork(philo->ccu->forks, philo->r_fork);
         if (!eat(philo))
             break ;
-        down_fork(philo->ccu->forks, philo->l_fork, philo->r_fork);
         if (!sleep_think(philo))
             break ;
     }

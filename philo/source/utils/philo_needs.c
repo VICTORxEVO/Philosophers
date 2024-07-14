@@ -1,11 +1,12 @@
 #include "philo.h"
 
-void    grap_fork(pthread_mutex_t *fork, int i)
+static void    grap_forks(pthread_mutex_t *fork, int lf, int rf)
 {
-    LOCK(&fork[i]);
+    LOCK(&fork[lf]);
+    LOCK(&fork[rf]);
 }
 
-void    down_fork(pthread_mutex_t *fork, int lf, int rf)
+static void    down_forks(pthread_mutex_t *fork, int lf, int rf)
 {
     UNLOCK(&fork[lf]);
     UNLOCK(&fork[rf]);
@@ -13,8 +14,9 @@ void    down_fork(pthread_mutex_t *fork, int lf, int rf)
 
 bool    eat(t_philo *philo)
 {
+    grap_forks(philo->ccu->forks, philo->r_fork, philo->l_fork);
     if (!philo->ccu->all_alive)
-        return (UNLOCK(&philo->ccu->forks[philo->l_fork]), UNLOCK(&philo->ccu->forks[philo->l_fork]), false);
+        return (down_forks(philo->ccu->forks, philo->r_fork, philo->l_fork), false);
     printt(philo, 'E');
     usleep(philo->ccu->t_eat * 1000);
     philo->last_meal = get_time();
@@ -24,6 +26,7 @@ bool    eat(t_philo *philo)
         philo->meal++;
         UNLOCK(&philo->ccu->meal_l);
     }
+    down_forks(philo->ccu->forks, philo->r_fork, philo->l_fork);
     return (true);
 }
 

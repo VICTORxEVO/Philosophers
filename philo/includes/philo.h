@@ -178,7 +178,6 @@ void    puterr_msg2(t_err *err, char *str, char flag);
 //Utils functions
 size_t  get_time(void);
 size_t  get_curr_time(t_philo *philo);
-void    grap_fork(pthread_mutex_t *fork, int i);
 void    down_fork(pthread_mutex_t *fork, int lf, int rf);
 bool    eat(t_philo *philo);
 bool    sleep_think(t_philo *philo);
