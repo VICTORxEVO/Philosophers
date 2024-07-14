@@ -29,7 +29,8 @@ static bool init_mutex(t_all *ccu)
     int i;
 
     ccu->forks = malloc(sizeof(pthread_mutex_t) * ccu->n_philo);
-    if (!ccu->forks)
+    ccu->locker = malloc(sizeof(pthread_mutex_t));
+    if (!ccu->forks || !ccu->locker)
         return (puterr_msg(&ccu->err, 'M'), false);
     i = -1;
     while(++i < ccu->n_philo)
@@ -37,6 +38,8 @@ static bool init_mutex(t_all *ccu)
         if (pthread_mutex_init(&ccu->forks[i], (void *)0) != 0)
             return (puterr_msg(&ccu->err, 'T'), false);
     }
+    if (pthread_mutex_init(ccu->locker, (void *)0) != 0)
+            return (puterr_msg(&ccu->err, 'T'), false);
     return (true);
 }
 

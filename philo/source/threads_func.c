@@ -27,12 +27,14 @@ void    *philo_parent(void *data)
     philo = (t_philo *)data;
     while(philo->ccu->all_alive || philo->finished)
     {
+        LOCK(philo->ccu->locker);
         if ((philo->last_meal + philo->ccu->t_death) < get_time() && philo->ccu->all_alive)
         {
-            printt(philo, 'D');
             philo->ccu->all_alive = false;
+            printt(philo, 'D');
             break;
         }
+        UNLOCK(philo->ccu->locker);
         if (philo->ccu->n_meals != -1 && philo->meal == philo->ccu->n_meals)
         {
             philo->finished = true;

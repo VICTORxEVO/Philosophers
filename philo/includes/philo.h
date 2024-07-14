@@ -136,6 +136,7 @@ typedef struct s_all
     struct s_err err;
     int n_meals;
     struct s_philo  *philos;
+    pthread_mutex_t *locker;
 }       t_all;
 
  

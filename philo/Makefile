@@ -2,7 +2,7 @@
 NAME=philo
 
 #cc compiler with all flags
-CCF=cc -Wall -Wextra -Werror
+CCF=cc -Wall -Wextra -Werror -fsanitize=thread
 
 #mandatory
 SRC=$(shell find "./source" -type f )
