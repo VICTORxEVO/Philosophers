@@ -8,8 +8,8 @@ static void    grap_forks(t_philo *philo)
 
 static void    down_forks(t_philo *philo)
 {
-    UNLOCK(philo->l_fork);
     UNLOCK(philo->r_fork);
+    UNLOCK(philo->l_fork);
 }
 
 bool    eat(t_philo *philo)
@@ -21,7 +21,9 @@ bool    eat(t_philo *philo)
     UNLOCK(&philo->ccu->checker_l);
     printt(philo, 'E');
     usleep(philo->ccu->t_eat * 1000);
+    LOCK(&philo->ccu->checker_l);
     philo->last_meal = get_time();
+    UNLOCK(&philo->ccu->checker_l);
     if (philo->ccu->n_meals != -1)
     {
         LOCK(&philo->ccu->meal_l);
@@ -38,6 +40,10 @@ bool    sleep_think(t_philo *philo)
     if (!philo->ccu->all_alive)
         return (UNLOCK(&philo->ccu->checker_l), false);
     UNLOCK(&philo->ccu->checker_l);
+    LOCK(&philo->ccu->meal_l);
+    if (philo->finished)
+        return (UNLOCK(&philo->ccu->meal_l), false);
+    UNLOCK(&philo->ccu->meal_l);
     printt(philo, 'S');
     usleep(philo->ccu->t_sleep * 1000);
     LOCK(&philo->ccu->checker_l);
