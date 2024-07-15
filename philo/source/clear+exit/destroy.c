@@ -1,14 +1,28 @@
 #include "philo.h"
 
-void    destroy(t_all *ccu)
+static bool destroy_mtx(t_all *ccu)
+{
+    int i;
+
+    i = -1;
+    while (++i < ccu->n_philo)
+    {
+        if (DSTR(&ccu->forks[i]) != 0)
+            return (puterr_msg(&ccu->err, 'd'), false);
+    }
+    if (DSTR(&ccu->print_l) | DSTR(&ccu->meal_l) | DSTR(&ccu->checker_l))
+        return (puterr_msg(&ccu->err, 'd'), false);
+    return (true);
+}
+
+bool    destroy(t_all *ccu)
 {
     int i;
 
     if (ccu->err.err_str)
         free(ccu->err.err_str);
-    i = -1;
-    while (ccu->forks && ++i < ccu->n_philo)
-        pthread_mutex_destroy(&ccu->forks[i]);
+    if (!destroy_mtx(ccu))
+        return (false);
     if (ccu->forks)
         free(ccu->forks);
     i = -1;
@@ -18,8 +32,11 @@ void    destroy(t_all *ccu)
             free(ccu->philos[i].t);
         if (ccu->philos[i].t_parent)
             free(ccu->philos[i].t_parent);
+        if (ccu->philos[i].t_hunger)
+            free(ccu->philos[i].t_hunger);
     }
     if (ccu->philos)
         free(ccu->philos);
     free(ccu);
+    return (true);
 }

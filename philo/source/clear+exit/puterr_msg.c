@@ -6,6 +6,11 @@ void	puterr_msg2(t_err *err, char *str, char flag)
 		err->err_str = ft_strjoin(str, ": too large number");
 	else if (flag == 'I')
 		err->err_str = ft_strjoin(str, ": argument must be a number");
+	else if (flag == 't')
+	err->err_str = ft_strdup("pthread: unable to join \
+            or detach a thread !");
+	else
+		err->err_str = ft_strdup("pthread: mutex destruction failed !!");
 }
 
 void	puterr_msg(t_err *err, char flag)
@@ -28,10 +33,9 @@ void	puterr_msg(t_err *err, char flag)
 	else if (flag == 'S')
 		err->err_str = ft_strdup("time to sleep must be more than 60 ms");
 	else if (flag == 'M')
-		err->err_str = ft_strdup("malloc: memory allocation failed !!");
+		err->err_str = ft_strdup("malloc: memory allocation failed !");
 	else if (flag == 'T')
-		err->err_str = ft_strdup("pthread: thread or mutex creation failed !!");
-	else if (flag == 't')
-		err->err_str = ft_strdup("pthread: unable to join \
-                or detach a thread !!");
+		err->err_str = ft_strdup("pthread: thread or mutex creation failed !");
+	else
+		puterr_msg2(err, NULL, flag);
 }

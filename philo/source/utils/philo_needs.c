@@ -1,22 +1,24 @@
 #include "philo.h"
 
-static void    grap_forks(pthread_mutex_t *fork, int lf, int rf)
+static void    grap_forks(t_philo *philo)
 {
-    LOCK(&fork[lf]);
-    LOCK(&fork[rf]);
+    LOCK(philo->l_fork);
+    LOCK(philo->r_fork);
 }
 
-static void    down_forks(pthread_mutex_t *fork, int lf, int rf)
+static void    down_forks(t_philo *philo)
 {
-    UNLOCK(&fork[lf]);
-    UNLOCK(&fork[rf]);
+    UNLOCK(philo->l_fork);
+    UNLOCK(philo->r_fork);
 }
 
 bool    eat(t_philo *philo)
 {
-    grap_forks(philo->ccu->forks, philo->r_fork, philo->l_fork);
+    grap_forks(philo);
+    LOCK(&philo->ccu->checker_l);
     if (!philo->ccu->all_alive)
-        return (down_forks(philo->ccu->forks, philo->r_fork, philo->l_fork), false);
+        return(UNLOCK(&philo->ccu->checker_l), down_forks(philo), false);
+    UNLOCK(&philo->ccu->checker_l);
     printt(philo, 'E');
     usleep(philo->ccu->t_eat * 1000);
     philo->last_meal = get_time();
@@ -26,18 +28,22 @@ bool    eat(t_philo *philo)
         philo->meal++;
         UNLOCK(&philo->ccu->meal_l);
     }
-    down_forks(philo->ccu->forks, philo->r_fork, philo->l_fork);
+    down_forks(philo);
     return (true);
 }
 
 bool    sleep_think(t_philo *philo)
 {
+    LOCK(&philo->ccu->checker_l);
     if (!philo->ccu->all_alive)
-        return (false);
+        return (UNLOCK(&philo->ccu->checker_l), false);
+    UNLOCK(&philo->ccu->checker_l);
     printt(philo, 'S');
     usleep(philo->ccu->t_sleep * 1000);
+    LOCK(&philo->ccu->checker_l);
     if (!philo->ccu->all_alive)
-        return (false);
+        return (UNLOCK(&philo->ccu->checker_l), false);
+    UNLOCK(&philo->ccu->checker_l);
     printt(philo, 'T');
     return (true);
 }

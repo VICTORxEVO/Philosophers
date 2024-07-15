@@ -92,6 +92,7 @@
 # define T pthread:
 # define LOCK pthread_mutex_lock
 # define UNLOCK pthread_mutex_unlock
+# define DSTR pthread_mutex_destroy
 
 // structs
 struct s_all;
@@ -106,10 +107,11 @@ typedef struct s_philo
     size_t  last_meal;
     pthread_t   *t;
     pthread_t   *t_parent;
+    pthread_t   *t_hunger;
     bool    finished;
     struct s_all *ccu;
-    int r_fork;
-    int l_fork;
+    pthread_mutex_t *r_fork;
+    pthread_mutex_t *l_fork;
 }       t_philo;
 
 typedef struct s_death
@@ -145,6 +147,7 @@ typedef struct s_all
 //threads function
 void    *life(void *philo);
 void    *philo_parent(void *philo);
+void    *philo_hunger(void *data);
 
 //printing function
 void    printt(t_philo *philo, char flag);
@@ -168,7 +171,7 @@ size_t	ft_strlen(const char *str);
 
 
 //clear and exit funtions
-void    destroy(t_all *ccu);
+bool    destroy(t_all *ccu);
 int     exit_v2(t_all *ccu);
 void    puterr_msg(t_err *err, char flag);
 void    puterr_msg2(t_err *err, char *str, char flag);

@@ -6,6 +6,13 @@ static bool    create_threads(t_philo *philo)
         return (puterr_msg(&philo->ccu->err, 'T'), false);
     if (pthread_create(philo->t_parent, (void *)0, philo_parent, philo) != 0)
         return (puterr_msg(&philo->ccu->err, 'T'), false);
+    if (philo->ccu->n_meals != -1)
+    {
+        if (pthread_create(philo->t_hunger, (void *)0, philo_hunger, philo) != 0)
+            return (puterr_msg(&philo->ccu->err, 'T'), false);
+        if (pthread_detach(*philo->t_hunger) != 0)
+            return (puterr_msg(&philo->ccu->err, 't'), false);
+    }
     if (pthread_detach(*philo->t_parent) != 0)
         return (puterr_msg(&philo->ccu->err, 't'), false);
     return (true);
@@ -13,12 +20,19 @@ static bool    create_threads(t_philo *philo)
 static bool    init_philo(t_philo *philo, int i)
 {
     philo->id = i;
-    philo->l_fork = i;
-    philo->r_fork= i + 1;
+    philo->l_fork = &philo->ccu->forks[i];
     if (i == philo->ccu->n_philo - 1)
-        philo->r_fork = 0;
+        philo->r_fork = &philo->ccu->forks[0];
+    else
+        philo->r_fork= &philo->ccu->forks[i + 1];
     philo->t = malloc(sizeof(pthread_t));
     philo->t_parent = malloc(sizeof(pthread_t));
+    if (philo->ccu->n_meals != -1)
+    {
+        philo->t_hunger = malloc(sizeof(pthread_t));
+        if (!philo->t_hunger)
+            return (puterr_msg(&philo->ccu->err, 'M'), false);
+    }
     if (!philo->t || !philo->t_parent)
         return (puterr_msg(&philo->ccu->err, 'M'), false);
     return (true);
