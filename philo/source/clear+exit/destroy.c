@@ -12,7 +12,7 @@ static bool destroy_mtx(t_all *ccu)
     }
     if (DSTR(&ccu->print_l))
         return (puterr_msg(&ccu->err, 'd'), false);
-    if (DSTR(&ccu->print_l))
+    if (DSTR(&ccu->checker_l))
         return (puterr_msg(&ccu->err, 'd'), false);
     if (DSTR(&ccu->meal_l))
         return (puterr_msg(&ccu->err, 'd'), false);
