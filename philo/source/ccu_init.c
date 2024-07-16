@@ -7,14 +7,10 @@ static bool    create_threads(t_philo *philo)
         return (puterr_msg(&philo->ccu->err, 'T'), false);
     if (pthread_create(philo->t_parent, (void *)0, philo_parent, philo) != 0)
         return (puterr_msg(&philo->ccu->err, 'T'), false);
-    if (pthread_detach(*philo->t_parent) != 0)
-        return (puterr_msg(&philo->ccu->err, 't'), false);
     if (philo->ccu->n_meals != -1)
     {
         if (pthread_create(philo->t_hunger, (void *)0, philo_hunger, philo) != 0)
             return (puterr_msg(&philo->ccu->err, 'T'), false);
-        if (pthread_detach(*philo->t_hunger) != 0)
-            return (puterr_msg(&philo->ccu->err, 't'), false);
     }
     return (true);
 }

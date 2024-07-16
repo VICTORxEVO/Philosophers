@@ -11,12 +11,12 @@ void    *life(void *data)
             return (usleep(10000000), NULL);
         if (!eat(philo))
             break ;
-        if (!sleep_think(philo))
-            break ;
         LOCK(&philo->ccu->meal_l);
         if (philo->finished)
             return (UNLOCK(&philo->ccu->meal_l), NULL);
         UNLOCK(&philo->ccu->meal_l);
+        if (!sleep_think(philo))
+            break ;
     }
     return (NULL);
 }
@@ -47,7 +47,7 @@ void    *philo_parent(void *data)
     while(true)
     {
         LOCK(&philo->ccu->checker_l);
-        if (!philo->ccu->all_alive)
+        if (!philo->ccu->all_alive || philo->finished)
             return (UNLOCK(&philo->ccu->checker_l), NULL);
         if ((size_t)(philo->last_meal + (size_t)philo->ccu->t_death) < get_time())
         {  

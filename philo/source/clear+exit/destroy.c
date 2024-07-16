@@ -10,11 +10,7 @@ static bool destroy_mtx(t_all *ccu)
         if (DSTR(&ccu->forks[i]) != 0)
             return (puterr_msg(&ccu->err, 'd'), false);
     }
-    if (DSTR(&ccu->print_l))
-        return (puterr_msg(&ccu->err, 'd'), false);
-    if (DSTR(&ccu->checker_l))
-        return (puterr_msg(&ccu->err, 'd'), false);
-    if (DSTR(&ccu->meal_l))
+    if (DSTR(&ccu->print_l) | DSTR(&ccu->checker_l) | DSTR(&ccu->meal_l))
         return (puterr_msg(&ccu->err, 'd'), false);
     return (true);
 }
