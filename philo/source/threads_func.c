@@ -49,12 +49,12 @@ void    *philo_parent(void *data)
         LOCK(&philo->ccu->checker_l);
         if (!philo->ccu->all_alive)
             return (UNLOCK(&philo->ccu->checker_l), NULL);
-        if ((philo->last_meal + (size_t)philo->ccu->t_death) < get_time())
+        if ((size_t)(philo->last_meal + (size_t)philo->ccu->t_death) < get_time())
         {  
             philo->ccu->all_alive = false;
             UNLOCK(&philo->ccu->checker_l);
             printt(philo, 'D');
-            break;
+            return (NULL);
         }
         UNLOCK(&philo->ccu->checker_l); 
     }
