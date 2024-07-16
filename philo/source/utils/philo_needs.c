@@ -40,10 +40,6 @@ bool    sleep_think(t_philo *philo)
     if (!philo->ccu->all_alive)
         return (UNLOCK(&philo->ccu->checker_l), false);
     UNLOCK(&philo->ccu->checker_l);
-    LOCK(&philo->ccu->meal_l);
-    if (philo->finished)
-        return (UNLOCK(&philo->ccu->meal_l), false);
-    UNLOCK(&philo->ccu->meal_l);
     printt(philo, 'S');
     usleep(philo->ccu->t_sleep * 1000);
     LOCK(&philo->ccu->checker_l);

@@ -14,7 +14,7 @@ INC= -I includes
 #debuging
 ifeq ($(DEBUG), YES)
    GDB = -g
-   FTZ = -fsanitize=thread
+   FTZ = -fsanitize=thread -g3
 endif
 
 .PHONY: all clean fclean re clear
