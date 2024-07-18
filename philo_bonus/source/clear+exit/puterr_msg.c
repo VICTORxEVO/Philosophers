@@ -10,10 +10,9 @@ void	puterr_msg2(t_err *err, char *str, char flag)
 
 static void puterr_msg_extra(t_err *err, char flag)
 {
-	if (flag = 't')
-	err->err_str = ft_strdup("pthread: unable to join \
-            or detach a thread !!");
-	else if (flag = 'f')
+	if (flag == 's')
+		err->err_str = ft_strdup("semaphore: creation failed !");
+	else if (flag == 'f')
 		err->err_str = ft_strdup("fork: processe creation failed !");
 }
 
@@ -37,9 +36,7 @@ void	puterr_msg(t_err *err, char flag)
 	else if (flag == 'S')
 		err->err_str = ft_strdup("time to sleep must be more than 60 ms");
 	else if (flag == 'M')
-		err->err_str = ft_strdup("malloc: memory allocation failed !!");
-	else if (flag == 'T')
-		err->err_str = ft_strdup("pthread: thread or mutex creation failed !!");
+		err->err_str = ft_strdup("malloc: memory allocation failed !");
 	else
 		puterr_msg_extra(err, flag);
 }

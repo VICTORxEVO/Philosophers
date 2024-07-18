@@ -185,6 +185,7 @@ void    down_fork(pthread_mutex_t *fork, int lf, int rf);
 bool    eat(t_philo *philo);
 bool    sleep_think(t_philo *philo);
 bool    wait_pt(t_all *ccu);
+bool    special_philo(t_philo *philo);
 
 
 

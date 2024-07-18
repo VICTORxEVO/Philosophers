@@ -7,8 +7,8 @@ void    *life(void *data)
     philo = (t_philo *)data;
     while(true)
     {
-        if (philo->ccu->n_philo == 1)
-            return (usleep(10000000), NULL);
+        if (special_philo(philo))
+            return (NULL);
         if (!eat(philo))
             break ;
         LOCK(&philo->ccu->meal_l);

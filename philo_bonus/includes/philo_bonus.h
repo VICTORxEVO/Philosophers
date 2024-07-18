@@ -6,6 +6,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <semaphore.h>
+# include <fcntl.h>
 # include <sys/time.h>
 # include <stdbool.h>
 
@@ -90,8 +92,13 @@
 # define CHILD 0
 # define MALLOC_ERR "philo: malloc: memory allocation failed"
 # define T pthread:
-# define LOCK pthread_mutex_lock
-# define UNLOCK pthread_mutex_unlock
+# define LOCK sem_wait
+# define UNLOCK sem_post
+# define FORKS_NAME "./Spoons"
+# define PRINT_NAME "./printt"
+# define MEAL_NAME  "./potato"
+# define DEAD_NAME  "./man_walking"
+
 
 // structs
 struct s_all;
@@ -104,19 +111,13 @@ typedef struct s_philo
     int id;
     int meal;
     size_t  last_meal;
-    pthread_t   *t;
     pthread_t   *t_parent;
     bool    finished;
+    bool    dead;
+    sem_t   *meal_l;
+    sem_t   *dead_l;
     struct s_all *ccu;
-    int r_fork;
-    int l_fork;
 }       t_philo;
-
-typedef struct s_death
-{
-    int philo_id;
-    int death_time;
-}       t_death;
 
 typedef struct s_err
 {
@@ -129,13 +130,12 @@ typedef struct s_all
     int t_sleep;
     int t_death;
     int n_philo;
-    bool all_alive;
     size_t creation_t;
-    pthread_mutex_t *forks;
-    struct s_death dead;
     struct s_err err;
     int n_meals;
     struct s_philo  *philos;
+    sem_t   *forks;
+    sem_t   *print_l;
     int *pids;
 }       t_all;
 

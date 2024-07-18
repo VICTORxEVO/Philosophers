@@ -6,11 +6,11 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 08:36:36 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/17 12:27:29 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:22:12 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 void	printt(t_philo *philo, char flag)
 {
@@ -28,7 +28,5 @@ void	printt(t_philo *philo, char flag)
 		action = "has taken left fork";
 	else
 		action = "died";
-	LOCK(&philo->ccu->print_l);
 	printf("%zu\t%d  %s\n", get_curr_time(philo), philo->id, action);
-	UNLOCK(&philo->ccu->print_l);
 }

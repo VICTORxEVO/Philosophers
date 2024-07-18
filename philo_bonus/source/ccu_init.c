@@ -1,21 +1,17 @@
 #include "philo_bonus.h"
 
- 
-static bool init_mutex(t_all *ccu)
+static void    init_sem(t_all *ccu)
 {
-    int i;
-
-    ccu->forks = malloc(sizeof(pthread_mutex_t) * ccu->n_philo);
-    if (!ccu->forks)
-        return (puterr_msg(&ccu->err, 'M'), false);
-    i = -1;
-    while(++i < ccu->n_philo)
-    {
-        if (pthread_mutex_init(&ccu->forks[i], (void *)0) != 0)
-            return (puterr_msg(&ccu->err, 'T'), false);
-    }
-    return (true);
+    ccu->forks = sem_open(FORKS_NAME, O_CREAT | O_EXCL, 0644, ccu->n_philo);
+    if (ccu->forks = SEM_FAILED)
+        (puterr_msg(&ccu->err, 's'), exit_v2(ccu), exit(10));
+    ccu->print_l = sem_open(PRINT_NAME, O_CREAT | O_EXCL, 0644, 1);
+    if (ccu->print_l = SEM_FAILED)
+        (puterr_msg(&ccu->err, 's'), exit_v2(ccu), exit(11));
 }
+
+
+
 
 bool    ccu_init(t_all *ccu)
 {
@@ -25,8 +21,17 @@ bool    ccu_init(t_all *ccu)
     ccu->pids = malloc(sizeof(int) * ccu->n_philo);
     if (!ccu->philos || !ccu->pids)
         return(false);
-    if (!init_mutex(ccu))
-        return (false);
+    init_sem(ccu);
     i = -1;
     ccu->creation_t = get_time();
+    while (++i < ccu->n_philo)
+    {
+        ccu->philos[i].ccu = ccu;
+        ccu->philos[i].id = i + 1;
+        ccu->philos[i].last_meal = get_time;
+        ccu->philos[i].t_parent = malloc(sizeof(pthread_t));
+        if (!ccu->philos[i].t_parent)
+            return (puterr_msg(&ccu->err, 'M'), false);
+        
+    }
 }

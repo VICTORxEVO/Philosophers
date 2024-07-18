@@ -26,15 +26,11 @@ static bool    init_philo(t_philo *philo, int i)
     }
     if (!philo->t || !philo->t_parent)
         return (puterr_msg(&philo->ccu->err, 'M'), false);
-    philo->id = i;
-    if (i == philo->ccu->n_philo - 1)
-    {
-        philo->l_fork = &philo->ccu->forks[0];
-        philo->r_fork= &philo->ccu->forks[i];
-        return (true);
-    }
+    philo->id = i + 1;
     philo->l_fork = &philo->ccu->forks[i];
     philo->r_fork= &philo->ccu->forks[i + 1];
+    if (philo->id == philo->ccu->n_philo)
+        philo->r_fork= &philo->ccu->forks[0];
     return (true);
 }
  
