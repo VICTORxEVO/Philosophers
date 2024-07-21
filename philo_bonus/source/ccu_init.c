@@ -32,6 +32,6 @@ bool    ccu_init(t_all *ccu)
         ccu->philos[i].t_parent = malloc(sizeof(pthread_t));
         if (!ccu->philos[i].t_parent)
             return (puterr_msg(&ccu->err, 'M'), false);
-        
     }
+    return (true);
 }

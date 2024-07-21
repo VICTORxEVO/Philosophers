@@ -10,6 +10,9 @@
 # include <fcntl.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <sys/wait.h>
+# include <signal.h>
+
 
 #ifndef COLORS_H
 # define COLORS_H
@@ -112,8 +115,8 @@ typedef struct s_philo
     int meal;
     size_t  last_meal;
     pthread_t   *t_parent;
+    pthread_t   *t_hunger;
     bool    finished;
-    bool    dead;
     sem_t   *meal_l;
     sem_t   *dead_l;
     struct s_all *ccu;
@@ -180,33 +183,7 @@ void    down_fork(pthread_mutex_t *fork, int lf, int rf);
 bool    eat(t_philo *philo);
 bool    sleep_think(t_philo *philo);
 bool    wait_pt(t_all *ccu);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void    usleep_v2(size_t ms);
 
 
 

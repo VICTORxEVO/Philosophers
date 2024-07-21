@@ -186,7 +186,8 @@ bool    eat(t_philo *philo);
 bool    sleep_think(t_philo *philo);
 bool    wait_pt(t_all *ccu);
 bool    special_philo(t_philo *philo);
-
+//check whatever a philo is dead and release locked mutexes
+bool    check_alive(t_philo *philo, char flag);
 
 
 

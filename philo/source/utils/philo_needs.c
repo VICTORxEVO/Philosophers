@@ -3,23 +3,32 @@
 bool    special_philo(t_philo *philo)
 {
     if (philo->ccu->n_philo == 1)
-        return (usleep(philo->ccu->t_death * 1000 + 100), true);
+        return (printt(philo, 'L'), usleep(philo->ccu->t_death * 1000 + 100), true);
     else if (philo->id % 2 == 0)
-        usleep(1);
+        usleep(2);
     return (false);
 }
 
-static void    grap_forks(t_philo *philo)
+static bool    grap_forks(t_philo *philo)
 {
     if (philo->id % 2 == 0)
     {
-        (LOCK(philo->r_fork),printt(philo, 'R'), LOCK(philo->l_fork), printt(philo, 'L'));
-        return ;
+        (LOCK(philo->r_fork), printt(philo, 'R'));
+        if (!check_alive(philo, 'R'))
+            return (false);
+        (LOCK(philo->l_fork), printt(philo, 'L'));
+        if (!check_alive(philo, 'B'))
+            return (false);
+        return (true);
     }
     LOCK(philo->l_fork);
+    if (!check_alive(philo, 'L'))
+        return (false);
     printt(philo, 'L');
-    LOCK(philo->r_fork);
-    printt(philo, 'R');
+    LOCK(philo->r_fork), printt(philo, 'R');
+    if (!check_alive(philo, 'B'))
+        return (false);
+    return (true);
 }
 
 static void    down_forks(t_philo *philo)
@@ -35,11 +44,8 @@ static void    down_forks(t_philo *philo)
 
 bool    eat(t_philo *philo)
 {
-    LOCK(&philo->ccu->checker_l);
-    if (!philo->ccu->all_alive)
-        return(UNLOCK(&philo->ccu->checker_l), down_forks(philo), false);
-    UNLOCK(&philo->ccu->checker_l);
-    grap_forks(philo);
+    if (!grap_forks(philo))
+        return (false);
     printt(philo, 'E');
     usleep(philo->ccu->t_eat * 1000);
     LOCK(&philo->ccu->checker_l);
@@ -57,16 +63,12 @@ bool    eat(t_philo *philo)
 
 bool    sleep_think(t_philo *philo)
 {
-    LOCK(&philo->ccu->checker_l);
-    if (!philo->ccu->all_alive)
-        return (UNLOCK(&philo->ccu->checker_l), false);
-    UNLOCK(&philo->ccu->checker_l);
+    if (!check_alive(philo, 'N'))
+        return (false);
     printt(philo, 'S');
     usleep(philo->ccu->t_sleep * 1000);
-    LOCK(&philo->ccu->checker_l);
-    if (!philo->ccu->all_alive)
-        return (UNLOCK(&philo->ccu->checker_l), false);
-    UNLOCK(&philo->ccu->checker_l);
+    if (!check_alive(philo, 'N'))
+        return (false);
     printt(philo, 'T');
     return (true);
 }

@@ -5,10 +5,10 @@ void    *life(void *data)
     t_philo *philo;
 
     philo = (t_philo *)data;
+    if (special_philo(philo))
+        return (NULL);
     while(true)
     {
-        if (special_philo(philo))
-            return (NULL);
         if (!eat(philo))
             break ;
         LOCK(&philo->ccu->meal_l);
