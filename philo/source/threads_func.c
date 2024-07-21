@@ -49,7 +49,7 @@ void    *philo_parent(void *data)
         LOCK(&philo->ccu->checker_l);
         if (!philo->ccu->all_alive || philo->finished)
             return (UNLOCK(&philo->ccu->checker_l), NULL);
-        if ((size_t)(philo->last_meal + (size_t)philo->ccu->t_death) < get_time())
+        if (get_time() - philo->last_meal > (size_t)philo->ccu->t_death)
         {  
             philo->ccu->all_alive = false;
             UNLOCK(&philo->ccu->checker_l);
