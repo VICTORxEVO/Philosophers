@@ -6,5 +6,5 @@ void    usleep_v2(size_t ms)
 
     start = get_time();
     while (get_time() - start < ms)
-        usleep(500);
+        usleep_v2(500);
 }

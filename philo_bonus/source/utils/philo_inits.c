@@ -78,7 +78,7 @@ void    init_philo_needs(t_philo *philo)
 void special_philo(t_philo *philo)
 {
     if (philo->ccu->n_philo == 1)
-        printt(philo, "R"), usleep(philo->ccu->t_death + 100);
+        printt(philo, "R"), usleep_v2(philo->ccu->t_death + 100);
     if (!(philo->id % 2))
-        usleep(1);
+        usleep_v2(1);
 }

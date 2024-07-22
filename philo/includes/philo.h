@@ -149,7 +149,7 @@ void    *life(void *philo);
 void    *philo_parent(void *philo);
 void    *philo_hunger(void *data);
 
-//printing function
+//printing philo status
 void    printt(t_philo *philo, char flag);
 
 
@@ -179,18 +179,25 @@ void    puterr_msg2(t_err *err, char *str, char flag);
 
 
 //Utils functions
+
+//gettings current time
 size_t  get_time(void);
 size_t  get_curr_time(t_philo *philo);
 void    down_fork(pthread_mutex_t *fork, int lf, int rf);
 bool    eat(t_philo *philo);
 bool    sleep_think(t_philo *philo);
+
+//wait for philos to join them
 bool    wait_pt(t_all *ccu);
+
+//control pair and umpair philos to prevente dead lock, also exit if one philos is existing
 bool    special_philo(t_philo *philo);
+
 //check whatever a philo is dead and release locked mutexes
 bool    check_alive(t_philo *philo, char flag);
 
-
-
+//improved sleep function, it sleeps the exact time given
+void    usleep_v2(size_t ms);
 
 
 #endif 

@@ -3,9 +3,9 @@
 bool    special_philo(t_philo *philo)
 {
     if (philo->ccu->n_philo == 1)
-        return (printt(philo, 'L'), usleep(philo->ccu->t_death * 1000 + 100), true);
+        return (printt(philo, 'L'), usleep_v2(philo->ccu->t_death * 1000 + 100), true);
     else if (philo->id % 2 == 0)
-        usleep(1);
+        usleep_v2(2);
     return (false);
 }
 
@@ -47,7 +47,7 @@ bool    eat(t_philo *philo)
     if (!grap_forks(philo))
         return (false);
     printt(philo, 'E');
-    usleep(philo->ccu->t_eat * 1000);
+    usleep_v2(philo->ccu->t_eat);
     LOCK(&philo->ccu->checker_l);
     philo->last_meal = get_time();
     UNLOCK(&philo->ccu->checker_l);
@@ -66,7 +66,7 @@ bool    sleep_think(t_philo *philo)
     if (!check_alive(philo, 'N'))
         return (false);
     printt(philo, 'S');
-    usleep(philo->ccu->t_sleep * 1000);
+    usleep_v2(philo->ccu->t_sleep);
     if (!check_alive(philo, 'N'))
         return (false);
     printt(philo, 'T');
