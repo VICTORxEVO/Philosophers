@@ -29,7 +29,7 @@ void    *philo_hunger(void *data)
     while (true)
     {
         LOCK(&philo->ccu->meal_l);
-        if (philo->meal == philo->ccu->n_meals)
+        if (philo->meal >= philo->ccu->n_meals)
         {
             philo->finished = true;
             return (UNLOCK(&philo->ccu->meal_l), NULL);
