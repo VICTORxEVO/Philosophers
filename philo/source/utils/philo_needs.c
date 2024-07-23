@@ -5,7 +5,7 @@ bool    special_philo(t_philo *philo)
     if (philo->ccu->n_philo == 1)
         return (printt(philo, 'L'), usleep_v2(philo->ccu->t_death + 100), true);
     else if (philo->id % 2 == 0)
-        usleep_v2(2);
+        usleep_v2(1);
     return (false);
 }
 
