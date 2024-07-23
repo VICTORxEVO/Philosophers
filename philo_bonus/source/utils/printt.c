@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 08:36:36 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/20 16:39:37 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:47:22 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ void	printt(t_philo *philo, char flag)
 		action = "is sleeping";
 	else if (flag == 'T')
 		action = "is thinking";
-	else if (flag == 'R')
-		action = "has taken right fork";
-	else if (flag == 'L')
-		action = "has taken left fork";
+	else if (flag == 'F')
+		action = "has taken a fork";
 	else
 		action = "died";
-	sem_wait(philo->ccu->print_l);
+	if (flag == 'D')
+	{
+		printf("%zu\t%d  %s\n", get_curr_time(philo), philo->id, action);
+		return ;
+	}	
+	LOCK(philo->ccu->pd_l);
 	printf("%zu\t%d  %s\n", get_curr_time(philo), philo->id, action);
-	sem_post(philo->ccu->print_l);
+	UNLOCK(philo->ccu->pd_l);
 }

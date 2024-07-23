@@ -9,6 +9,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <libft.h>
 
 #ifndef COLORS_H
 # define COLORS_H

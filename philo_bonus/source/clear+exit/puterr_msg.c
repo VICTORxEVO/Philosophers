@@ -14,6 +14,10 @@ static void puterr_msg_extra(t_err *err, char flag)
 		err->err_str = ft_strdup("semaphore: creation failed !");
 	else if (flag == 'f')
 		err->err_str = ft_strdup("fork: processe creation failed !");
+	else if (flag == 'T')
+		err->err_str = ft_strdup("pthread: thread creation failed !");
+	else if (flag == 't')
+		err->err_str = ft_strdup("pthread: unable to join a thread !");
 }
 
 void	puterr_msg(t_err *err, char flag)

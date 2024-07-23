@@ -1,20 +1,24 @@
 #program name
-NAME=philo
+NAME = philo
 
 #cc compiler with all flags
-CCF=cc -Wall -Wextra -Werror
+CCF = cc -Wall -Wextra -Werror
 
-#mandatory
-SRC=$(shell find "./source" -type f )
-OBJ=$(SRC:.c=.o)
+# Directories
+SRC_DIR := source
+OBJ_DIR := objects
+
+# Source and Object Files
+SRC := $(shell find $(SRC_DIR) -type f )
+OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+
 
 #include header
-INC= -I includes
+INC= -I./includes
 
 #debuging
 ifeq ($(DEBUG), YES)
-   GDB = -g
-   FTZ = -fsanitize=thread -g3
+	CCF += -g -fsanitize=thread
 endif
 
 .PHONY: all clean fclean re clear
@@ -23,18 +27,18 @@ all: $(NAME)
 
 
 $(NAME): $(OBJ)
-		@$(CCF) $(FTZ) $(INC) $^ -o $@
+		@$(CCF) $(OBJ) $(INC) -o $@
 		@echo "compiling"
 		@sleep 0.5
 		@echo "$(NAME) is ready"
 
 
-%.o: %.c
-		@$(CCF) $(GDB) $(INC) -c $< -o $@ 
-
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+		@mkdir -p $(@D)
+		@$(CCF) $(INC) -c $< -o $@
 
 clean:
-		@rm -f $(OBJ)
+		@rm -rf $(OBJ_DIR)
 		@echo "cleaning..."
 
 
@@ -51,3 +55,6 @@ bclear: all clean
 
 norm :
 		@norminette $(SRC) includes/
+
+show:
+	@echo $(SRC)

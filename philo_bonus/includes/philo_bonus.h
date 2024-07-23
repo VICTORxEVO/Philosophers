@@ -94,13 +94,12 @@
 
 # define CHILD 0
 # define MALLOC_ERR "philo: malloc: memory allocation failed"
-# define T pthread:
 # define LOCK sem_wait
 # define UNLOCK sem_post
-# define FORKS_NAME "./Spoons"
-# define PRINT_NAME "./printt"
-# define MEAL_NAME  "./potato"
-# define DEAD_NAME  "./man_walking"
+# define FORKS_SM "/Spoons"
+# define PRINT_SM "/printt"
+# define MEAL_SM  "/potato"
+# define DEAD_SM  "/man_walking"
 
 
 // structs
@@ -117,8 +116,6 @@ typedef struct s_philo
     pthread_t   *t_parent;
     pthread_t   *t_hunger;
     bool    finished;
-    sem_t   *meal_l;
-    sem_t   *dead_l;
     struct s_all *ccu;
 }       t_philo;
 
@@ -138,15 +135,19 @@ typedef struct s_all
     int n_meals;
     struct s_philo  *philos;
     sem_t   *forks;
-    sem_t   *print_l;
+    sem_t   *meal_l;
+    sem_t   *pd_l;
     int *pids;
 }       t_all;
 
 //threads function
 void    *life(void *philo);
 void    *philo_parent(void *philo);
+void    *philo_hunger(void *data);
 
 //printing function
+//'E' for eating 'S' for sleaping 'T' for thinking
+//'R' | 'L' for taking fork 'D' for died 
 void    printt(t_philo *philo, char flag);
 
 
@@ -184,9 +185,18 @@ bool    eat(t_philo *philo);
 bool    sleep_think(t_philo *philo);
 bool    wait_pt(t_all *ccu);
 void    usleep_v2(size_t ms);
+void    init_philo_needs(t_philo *philo);
+void    special_philo(t_philo *philo);
+
+//Decrement semaphore by 2
+void    grap_forks(t_philo *philo);
+
+//Increase semaphore by 2
+void    down_forks(t_philo *philo);
 
 
-
+//parent wait for philos to exit
+void    parent_action(t_all *ccu);
 
 
 

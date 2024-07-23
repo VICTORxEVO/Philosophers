@@ -13,7 +13,10 @@ void    parent_action(t_all *ccu)
         {
             i = -1;
             while (++i < ccu->n_philo)
-                kill(ccu->pids[i], SIGTERM)
+                kill(ccu->pids[i], SIGTERM);
+            return ;
         }
     }
+    UNLOCK(ccu->pd_l);
+    destroy(ccu);
 }

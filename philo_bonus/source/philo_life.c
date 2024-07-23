@@ -7,13 +7,13 @@ void    *philo_hunger(void *data)
     philo = (t_philo *)data;
     while (true)
     {
-        sem_wait(philo->meal_l);
-        if (philo->meal = philo->ccu->n_meals)
+        LOCK(philo->ccu->meal_l);
+        if (philo->meal >= philo->ccu->n_meals)
         {
             philo->finished = true;
-            return (sem_post(philo->meal_l), NULL);
+            return (UNLOCK(philo->ccu->meal_l), NULL);
         }
-        sem_post(philo->meal_l);
+        UNLOCK(philo->ccu->meal_l);
     }
     return (NULL);
 }
@@ -25,18 +25,18 @@ void    *philo_parent(void *data)
     philo = (t_philo *)data;
     while (true)
     {
-        sem_wait(philo->dead_l);
-        if (get_time() - (size_t)philo->last_meal > (size_t)philo->ccu->t_death)
+        LOCK(philo->ccu->pd_l);
+        if ((get_time() - philo->last_meal) > (size_t)philo->ccu->t_death)
         {
             printt(philo, 'D');
-            (sem_post(philo->dead_l), exit(1));
+            exit(1);
         }
-        sem_post(philo->dead_l);
+        UNLOCK(philo->ccu->pd_l);
     }
     return (NULL);
 }
 
-void    life(void *data)
+void    *life(void *data)
 {
     t_philo *philo;
 
@@ -45,10 +45,8 @@ void    life(void *data)
     special_philo(philo);
     while (true)
     {
-        if (!eat(philo))
-            break ;
-        if (sleep_think(philo))
-            break ;
+        eat(philo);
+        sleep_think(philo);
     }
     return (NULL);
 }

@@ -1,10 +1,5 @@
 #include "philo_bonus.h"
 
-static void do_operation(t_all *ccu)
-{
-    ccu->t_eat*= 1000;
-    ccu->t_sleep*= 1000;
-}
 
 static bool init(char *av[], t_all *ccu)
 {
@@ -29,7 +24,6 @@ static bool init(char *av[], t_all *ccu)
         if (ccu->n_meals < 1)
             return (puterr_msg(&ccu->err, 'F'), false);
     }
-    do_operation(ccu);
     return (true);
 }
 
