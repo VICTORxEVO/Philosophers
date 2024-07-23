@@ -151,7 +151,7 @@ void    *philo_parent(void *philo);
 void    *philo_hunger(void *data);
 
 //printing philo status
-void    printt(t_philo *philo, char flag);
+bool    printt(t_philo *philo, char flag);
 
 
 //parsing functions

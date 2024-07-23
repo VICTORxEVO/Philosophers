@@ -10,7 +10,7 @@ static void	init_sem(t_all *ccu)
 		(puterr_msg(&ccu->err, 's'),exit_v2(ccu), exit(11));
     if (ccu->n_meals != -1)
 	{
-        ccu->meal_l = sem_open(MEAL_SM, O_CREAT | O_EXCL, 0644, ccu->n_philo);
+        ccu->meal_l = sem_open(MEAL_SM, O_CREAT | O_EXCL, 0644, 1);
 		if (ccu->meal_l == (sem_t *)0)
 			(puterr_msg(&ccu->err, 's'), exit(11));
 	}
