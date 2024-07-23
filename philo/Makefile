@@ -35,7 +35,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@mkdir -p $(@D)
-		@$(CCF) $(INC) -c $< -o $@
+		@$(CCF) $(INC) -g -c $< -o $@
 
 clean:
 		@rm -rf $(OBJ_DIR)

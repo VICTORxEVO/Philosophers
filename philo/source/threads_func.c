@@ -11,52 +11,12 @@ void    *life(void *data)
     {
         if (!eat(philo))
             break ;
-        LOCK(&philo->ccu->meal_l);
+        LOCK(&philo->ccu->global_l);
         if (philo->finished)
-            return (UNLOCK(&philo->ccu->meal_l), NULL);
-        UNLOCK(&philo->ccu->meal_l);
+            return (UNLOCK(&philo->ccu->global_l), NULL);
+        UNLOCK(&philo->ccu->global_l);
         if (!sleep_think(philo))
             break ;
-    }
-    return (NULL);
-}
-
-void    *philo_hunger(void *data)
-{
-    t_philo *philo;
-
-    philo = (t_philo *)data;
-    while (true)
-    {
-        LOCK(&philo->ccu->meal_l);
-        if (philo->meal >= philo->ccu->n_meals)
-        {
-            philo->finished = true;
-            return (UNLOCK(&philo->ccu->meal_l), NULL);
-        }
-        UNLOCK(&philo->ccu->meal_l);
-    }
-    return (NULL);
-}
-
-void    *philo_parent(void *data)
-{
-    t_philo *philo;
-
-    philo = (t_philo *)data;
-    while(true)
-    {
-        LOCK(&philo->ccu->checker_l);
-        if (!philo->ccu->all_alive || philo->finished)
-            return (UNLOCK(&philo->ccu->checker_l), NULL);
-        if (get_time() - philo->last_meal > (size_t)philo->ccu->t_death)
-        {  
-            philo->ccu->all_alive = false;
-            UNLOCK(&philo->ccu->checker_l);
-            printt(philo, 'D');
-            return (NULL);
-        }
-        UNLOCK(&philo->ccu->checker_l); 
     }
     return (NULL);
 }

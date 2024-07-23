@@ -10,7 +10,7 @@ static bool destroy_mtx(t_all *ccu)
         if (DSTR(&ccu->forks[i]) != 0)
             return (puterr_msg(&ccu->err, 'd'), false);
     }
-    if (DSTR(&ccu->print_l) | DSTR(&ccu->checker_l) | DSTR(&ccu->meal_l))
+    if (DSTR(&ccu->global_l))
         return (puterr_msg(&ccu->err, 'd'), false);
     return (true);
 }
@@ -30,10 +30,6 @@ bool    destroy(t_all *ccu)
     {
         if (ccu->philos[i].t)
             free(ccu->philos[i].t);
-        if (ccu->philos[i].t_parent)
-            free(ccu->philos[i].t_parent);
-        if (ccu->philos[i].t_hunger)
-            free(ccu->philos[i].t_hunger);
     }
     if (ccu->philos)
         free(ccu->philos);

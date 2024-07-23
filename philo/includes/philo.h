@@ -107,8 +107,6 @@ typedef struct s_philo
     int meal;
     size_t  last_meal;
     pthread_t   *t;
-    pthread_t   *t_parent;
-    pthread_t   *t_hunger;
     bool    finished;
     struct s_all *ccu;
     pthread_mutex_t *r_fork;
@@ -139,16 +137,12 @@ typedef struct s_all
     struct s_err err;
     int n_meals;
     struct s_philo  *philos;
-    pthread_mutex_t print_l;
-    pthread_mutex_t meal_l;
-    pthread_mutex_t checker_l;
+    pthread_mutex_t global_l;
 }       t_all;
 
  
 //threads function
 void    *life(void *philo);
-void    *philo_parent(void *philo);
-void    *philo_hunger(void *data);
 
 //printing philo status
 bool    printt(t_philo *philo, char flag);
