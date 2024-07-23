@@ -46,10 +46,10 @@ bool    eat(t_philo *philo)
     if (!grap_forks(philo))
         return (false);
     printt(philo, 'E');
-    usleep_v2(philo->ccu->t_eat);
     LOCK(&philo->ccu->global_l);
     philo->last_meal = get_time();
     UNLOCK(&philo->ccu->global_l);
+    usleep_v2(philo->ccu->t_eat);
     if (philo->ccu->n_meals != -1)
     {
         LOCK(&philo->ccu->global_l);
