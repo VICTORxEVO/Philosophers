@@ -4,7 +4,7 @@ static void	init_sem(t_all *ccu)
 {
     (sem_unlink(FORKS_SM), sem_unlink(PRINT_SM),
             sem_unlink(DEAD_SM), sem_unlink(MEAL_SM));
-	ccu->forks = sem_open(FORKS_SM, O_CREAT, 0644, ccu->n_philo);
+	ccu->forks = sem_open(FORKS_SM, O_CREAT | O_EXCL, 0644, ccu->n_philo);
 	ccu->pd_l = sem_open(DEAD_SM, O_CREAT | O_EXCL, 0644, 1);
 	if (ccu->forks == (sem_t *)0 || ccu->pd_l == (sem_t *)0)
 		(puterr_msg(&ccu->err, 's'),exit_v2(ccu), exit(11));

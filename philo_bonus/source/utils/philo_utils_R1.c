@@ -2,6 +2,8 @@
 
 void    grap_forks(t_philo *philo)
 {
+    if (!(philo->id % 2))
+        usleep_v2(1);
     (LOCK(philo->ccu->forks), printt(philo, 'F'));
     (LOCK(philo->ccu->forks), printt(philo, 'F'));
 }

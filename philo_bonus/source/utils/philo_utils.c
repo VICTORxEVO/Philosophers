@@ -27,18 +27,16 @@ void    special_philo(t_philo *philo)
 {
     if (philo->ccu->n_philo == 1)
         (printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 20), exit(1));
-    if (!(philo->id % 2))
-        usleep_v2(1);
 }
 
 bool   eat(t_philo *philo)
 {
     grap_forks(philo);
     printt(philo, 'E');
-    usleep_v2((size_t)philo->ccu->t_eat);
     LOCK(philo->ccu->pd_l);
     philo->last_meal = get_time();
     UNLOCK(philo->ccu->pd_l);
+    usleep_v2((size_t)philo->ccu->t_eat);
     if (philo->ccu->n_meals != -1)
     {
         LOCK(philo->ccu->meal_l);
