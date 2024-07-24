@@ -20,6 +20,7 @@ void    *life(void *data)
         }
         if (!sleep_think(philo))
             break ;
+        usleep_v2((philo->ccu->t_death - (get_time() - philo->last_meal)) / 2);
     }
     return (NULL);
 }

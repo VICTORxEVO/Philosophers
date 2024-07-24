@@ -14,7 +14,12 @@ static bool    init_philo(t_philo *philo, int i)
         return (puterr_msg(&philo->ccu->err, 'M'), false);
     philo->id = i + 1;
     philo->l_fork = &philo->ccu->forks[i];
-    philo->r_fork= &philo->ccu->forks[(i + 1) % philo->ccu->n_philo];
+    philo->r_fork= &philo->ccu->forks[i + 1];
+    if (i == philo->ccu->n_philo - 1)
+    {
+        philo->l_fork = &philo->ccu->forks[0];
+        philo->r_fork= &philo->ccu->forks[i];
+    }
     return (true);
 }
  

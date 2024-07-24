@@ -47,6 +47,7 @@ void    *life(void *data)
     {
         eat(philo);
         sleep_think(philo);
+        usleep_v2((philo->ccu->t_death - (get_time() - philo->last_meal)) / 2);
     }
     return (NULL);
 }

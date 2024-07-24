@@ -27,8 +27,6 @@ void    special_philo(t_philo *philo)
 {
     if (philo->ccu->n_philo == 1)
         (printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 20));
-    if (!(philo->id % 2))
-        (usleep_v2(1));
 }
 
 bool   eat(t_philo *philo)
