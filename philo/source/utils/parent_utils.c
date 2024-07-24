@@ -5,6 +5,7 @@ bool    death_action(t_all *ccu, int i)
 {
     ccu->all_alive = false;
     printt(&ccu->philos[i], 'D');
+    UNLOCK(&ccu->global_l);
     return (true);
 }
 
