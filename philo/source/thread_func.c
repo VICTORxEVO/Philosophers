@@ -11,10 +11,13 @@ void    *life(void *data)
     {
         if (!eat(philo))
             break ;
-        LOCK(&philo->ccu->global_l);
-        if (philo->finished)
-            return (UNLOCK(&philo->ccu->global_l), NULL);
-        UNLOCK(&philo->ccu->global_l);
+        if (philo->ccu->n_meals != -1)
+        {
+            LOCK(&philo->ccu->meal_l);
+            if (philo->finished)
+                return (UNLOCK(&philo->ccu->meal_l), NULL);
+            UNLOCK(&philo->ccu->meal_l);
+        }
         if (!sleep_think(philo))
             break ;
     }

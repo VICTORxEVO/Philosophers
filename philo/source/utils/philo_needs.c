@@ -14,19 +14,19 @@ static bool    grap_forks(t_philo *philo)
     if (philo->id % 2 == 0)
     {
         (LOCK(philo->r_fork), printt(philo, 'F'));
-        if (!check_alive(philo, 'R'))
-            return (false);
+        // if (!check_alive(philo, 'R'))
+        //     return (false);
         (LOCK(philo->l_fork), printt(philo, 'F'));
-        if (!check_alive(philo, 'B'))
-            return (false);
+        // if (!check_alive(philo, 'B'))
+        //     return (false);
         return (true);
     }
     (LOCK(philo->l_fork), printt(philo, 'F'));
-    if (!check_alive(philo, 'L'))
-        return (false);
+    // if (!check_alive(philo, 'L'))
+    //     return (false);
     LOCK(philo->r_fork), printt(philo, 'F');
-    if (!check_alive(philo, 'B'))
-        return (false);
+    // if (!check_alive(philo, 'B'))
+    //     return (false);
     return (true);
 }
 
@@ -52,9 +52,9 @@ bool    eat(t_philo *philo)
     usleep_v2(philo->ccu->t_eat);
     if (philo->ccu->n_meals != -1)
     {
-        LOCK(&philo->ccu->global_l);
+        LOCK(&philo->ccu->meal_l);
         philo->meal++;
-        UNLOCK(&philo->ccu->global_l);
+        UNLOCK(&philo->ccu->meal_l);
     }
     down_forks(philo);
     return (true);

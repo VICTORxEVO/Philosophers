@@ -1,34 +1,28 @@
 #include "philo.h"
 
-static void    philo_parent(t_all *ccu)
+static bool    philo_parent(t_all *ccu)
 {
-    int i;
-    int all_eat;
+    int (i), (all_eat);
 
-    all_eat = 0;
     i = -1;
+    all_eat = 0;
     while(true)
     {
         while (++i < ccu->n_philo)
         {
             LOCK(&ccu->global_l);
             if ((get_time() - ccu->philos[i].last_meal) > (size_t)ccu->t_death)
-            {
-                ccu->all_alive = false;
-                (printt(&ccu->philos[i], 'D'), UNLOCK(&ccu->global_l));
-                return ;
-            }
-            if (ccu->n_meals != -1 && ccu->philos[i].meal >= ccu->n_meals && !ccu->philos[i].finished)
-            {
-                ccu->philos[i].finished = true;
-                all_eat++;
-            }
+                return (death_action(ccu, i));
             UNLOCK(&ccu->global_l);
+            if (ccu->n_meals != -1)
+                (LOCK(&ccu->meal_l), meal_action(ccu, i, &all_eat));
+            UNLOCK(&ccu->meal_l);
             if (all_eat == ccu->n_philo)
-                return ;
+                return (true);
         }
         i = -1;
     }
+    return (true);
 }
 
 bool    wait_pt(t_all *ccu)

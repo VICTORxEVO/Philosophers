@@ -6,12 +6,10 @@ static bool destroy_mtx(t_all *ccu)
 
     i = -1;
     while (++i < ccu->n_philo)
-    {
-        if (DSTR(&ccu->forks[i]) != 0)
-            return (puterr_msg(&ccu->err, 'd'), false);
-    }
-    if (DSTR(&ccu->global_l))
-        return (puterr_msg(&ccu->err, 'd'), false);
+        DSTR(&ccu->forks[i]);
+    DSTR(&ccu->global_l);
+    if (ccu->n_meals != -1)
+        DSTR(&ccu->meal_l);
     return (true);
 }
 

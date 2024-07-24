@@ -6,11 +6,9 @@ void	puterr_msg2(t_err *err, char *str, char flag)
 		err->err_str = ft_strjoin(str, ": too large number");
 	else if (flag == 'I')
 		err->err_str = ft_strjoin(str, ": argument must be a number");
-	else if (flag == 't')
+	else
 	err->err_str = ft_strdup("pthread: unable to join \
             or detach a thread !");
-	else
-		err->err_str = ft_strdup("pthread: mutex destruction failed !!");
 }
 
 void	puterr_msg(t_err *err, char flag)

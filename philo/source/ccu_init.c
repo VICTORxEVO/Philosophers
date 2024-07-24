@@ -14,9 +14,7 @@ static bool    init_philo(t_philo *philo, int i)
         return (puterr_msg(&philo->ccu->err, 'M'), false);
     philo->id = i + 1;
     philo->l_fork = &philo->ccu->forks[i];
-    philo->r_fork= &philo->ccu->forks[i + 1];
-    if (philo->id == philo->ccu->n_philo)
-        philo->r_fork= &philo->ccu->forks[0];
+    philo->r_fork= &philo->ccu->forks[(i + 1) % philo->ccu->n_philo];
     return (true);
 }
  
@@ -35,6 +33,11 @@ static bool init_mutex(t_all *ccu)
     }
     if (pthread_mutex_init(&ccu->global_l, (void *)0) != 0)
             return (puterr_msg(&ccu->err, 'T'), false);
+    if (ccu->n_meals != -1)
+    {
+        if (pthread_mutex_init(&ccu->global_l, (void *)0) != 0)
+                return (puterr_msg(&ccu->err, 'T'), false);
+    }
     return (true);
 }
 

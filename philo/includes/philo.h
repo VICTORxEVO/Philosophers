@@ -89,7 +89,6 @@
 #endif
 
 # define MALLOC_ERR "philo: malloc: memory allocation failed"
-# define T pthread:
 # define LOCK pthread_mutex_lock
 # define UNLOCK pthread_mutex_unlock
 # define DSTR pthread_mutex_destroy
@@ -137,6 +136,7 @@ typedef struct s_all
     int n_meals;
     struct s_philo  *philos;
     pthread_mutex_t global_l;
+    pthread_mutex_t meal_l;
 }       t_all;
 
  
@@ -151,17 +151,6 @@ bool    printt(t_philo *philo, char flag);
 bool    parser(int ac, char *av[], t_all *ccu);
 bool    ccu_init(t_all *ccu);
 
-//external functions
-int     ft_atoi(const char *str);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t n, size_t size);
-int     ft_isdigit(int x);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	puterr(char *s);
-char	*ft_strdup(const char *s);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-size_t	ft_strlen(const char *str);
 
 
 //clear and exit funtions
@@ -172,13 +161,16 @@ void    puterr_msg2(t_err *err, char *str, char flag);
 
 
 
-//Utils functions
+/*                      >>>>>UTILS FUNCTIONS<<<<<                    */
 
 //gettings current time
 size_t  get_time(void);
 size_t  get_curr_time(t_philo *philo);
-void    down_fork(pthread_mutex_t *fork, int lf, int rf);
+
+//thread eating routine function
 bool    eat(t_philo *philo);
+
+//thread sleeping and thinking routine funtion
 bool    sleep_think(t_philo *philo);
 
 //wait for philos to join them
@@ -193,5 +185,32 @@ bool    check_alive(t_philo *philo, char flag);
 //improved sleep function, it sleeps the exact time given
 void    usleep_v2(size_t ms);
 
+//setting death flag to threads in order to quit
+bool    death_action(t_all *ccu, int i);
 
-#endif 
+//setting finished flag to thread in order to terminate simulation
+void    meal_action(t_all *ccu, int i, int *all_eat);
+
+
+
+/*                      >>>>>external functions<<<<<                 */
+int     ft_atoi(const char *str);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t n, size_t size);
+int     ft_isdigit(int x);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	puterr(char *s);
+char	*ft_strdup(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+size_t	ft_strlen(const char *str);
+
+
+
+
+
+#endif
+
+
+
+
