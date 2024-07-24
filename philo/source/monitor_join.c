@@ -15,8 +15,7 @@ static bool    philo_parent(t_all *ccu)
                 return (death_action(ccu, i));
             UNLOCK(&ccu->global_l);
             if (ccu->n_meals != -1)
-                (LOCK(&ccu->meal_l), meal_action(ccu, i, &all_eat));
-            UNLOCK(&ccu->meal_l);
+                (LOCK(&ccu->meal_l), meal_action(ccu, i, &all_eat), UNLOCK(&ccu->meal_l));
             if (all_eat == ccu->n_philo)
                 return (true);
         }
