@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:29 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 17:09:02 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:30:48 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ bool	sleep_think(t_philo *philo)
 	if (!check_alive(philo, 'N'))
 		return (false);
 	printt(philo, 'S');
-	if (usleep_v2(philo->ccu->t_sleep, philo))
+	if (!usleep_v2(philo->ccu->t_sleep, philo))
 		return (false);
 	if (!check_alive(philo, 'N'))
 		return (false);
