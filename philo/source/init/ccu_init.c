@@ -6,28 +6,29 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:53:47 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:54:11 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:07:57 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	create_threads(t_philo *philo)
-{
-	philo->last_meal = get_time();
-	if (pthread_create(philo->t, (void *)0, life, philo) != 0)
-		return (puterr_msg(&philo->ccu->err, 'T'), false);
-	return (true);
-}
+// static bool	create_threads(t_philo *philo)
+// {
+// 	philo->last_meal = get_time();
+// 	if (pthread_create(philo->t, (void *)0, life, philo) != 0)
+// 		return (puterr_msg(&philo->ccu->err, 'T'), false);
+// 	return (true);
+// }
 
-static bool	init_philo(t_philo *philo, int i)
+static bool	init_philo(t_philo *philo, int i, t_all *ccu)
 {
 	philo->t = malloc(sizeof(pthread_t));
 	if (!philo->t)
 		return (puterr_msg(&philo->ccu->err, 'M'), false);
+	philo->ccu = ccu;
 	philo->id = i + 1;
 	philo->l_fork = &philo->ccu->forks[i];
-	philo->r_fork = &philo->ccu->forks[i + 1];
+	philo->r_fork = &philo->ccu->forks[(i + 1) % philo->ccu->n_philo];
 	if (i == philo->ccu->n_philo - 1)
 	{
 		philo->l_fork = &philo->ccu->forks[0];
@@ -72,11 +73,15 @@ bool	ccu_init(t_all *ccu)
 	ccu->creation_t = get_time();
 	while (++i < ccu->n_philo)
 	{
-		ccu->philos[i].ccu = ccu;
-		if (!init_philo(&ccu->philos[i], i))
+		if (!init_philo(&ccu->philos[i], i, ccu))
 			return (false);
-		if (!create_threads(&ccu->philos[i]))
-			return (false);
+	}
+	i = -1;
+	while (++i < ccu->n_philo)
+	{
+		ccu->philos[i].last_meal = get_time();
+		if (pthread_create(ccu->philos[i].t, (void *)0, life, &ccu->philos[i]) != 0)
+			return (puterr_msg(&ccu->err, 'T'), false);
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:29 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 17:50:33 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:04:19 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ bool	special_philo(t_philo *philo)
 	if (philo->ccu->n_philo == 1)
 	{
 		LOCK(philo->l_fork);
-		(printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 10, philo));
+		printt(philo, 'F');
 		return (UNLOCK(philo->l_fork), true);
 	}
 	if (philo->id % 2)
-		usleep_v2(1, philo);
+		usleep_v2(2, philo);
 	return (false);
 }
 
