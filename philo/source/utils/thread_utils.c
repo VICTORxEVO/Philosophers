@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:29 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 17:30:48 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:50:33 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ bool	special_philo(t_philo *philo)
 		(printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 10, philo));
 		return (UNLOCK(philo->l_fork), true);
 	}
+	if (philo->id % 2)
+		usleep_v2(1, philo);
 	return (false);
 }
 
