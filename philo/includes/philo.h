@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:56:57 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 11:14:33 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:06:34 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ bool				special_philo(t_philo *philo);
 bool				check_alive(t_philo *philo, char flag);
 
 // improved sleep function, it sleeps the exact time given
-void				usleep_v2(size_t ms);
+bool				usleep_v2(size_t ms, t_philo *philo);
 
 // setting death flag to threads in order to quit
 bool				death_action(t_all *ccu, int i);

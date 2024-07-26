@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:29 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:56:07 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:09:02 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	special_philo(t_philo *philo)
 	if (philo->ccu->n_philo == 1)
 	{
 		LOCK(philo->l_fork);
-		(printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 10));
+		(printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 10, philo));
 		return (UNLOCK(philo->l_fork), true);
 	}
 	return (false);
@@ -42,14 +42,15 @@ bool	eat(t_philo *philo)
 	LOCK(&philo->ccu->global_l);
 	philo->last_meal = get_time();
 	UNLOCK(&philo->ccu->global_l);
-	usleep_v2(philo->ccu->t_eat);
+	if (!usleep_v2(philo->ccu->t_eat, philo))
+		return (down_forks(philo), false);
+	down_forks(philo);
 	if (philo->ccu->n_meals != -1)
 	{
 		LOCK(&philo->ccu->meal_l);
 		philo->meal++;
 		UNLOCK(&philo->ccu->meal_l);
 	}
-	down_forks(philo);
 	return (true);
 }
 
@@ -58,7 +59,8 @@ bool	sleep_think(t_philo *philo)
 	if (!check_alive(philo, 'N'))
 		return (false);
 	printt(philo, 'S');
-	usleep_v2(philo->ccu->t_sleep);
+	if (usleep_v2(philo->ccu->t_sleep, philo))
+		return (false);
 	if (!check_alive(philo, 'N'))
 		return (false);
 	printt(philo, 'T');

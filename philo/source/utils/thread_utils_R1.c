@@ -6,19 +6,25 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:27 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:55:28 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:04:05 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	usleep_v2(size_t ms)
+bool	usleep_v2(size_t ms, t_philo *philo)
 {
 	size_t	start;
 
 	start = get_time();
 	while ((get_time() - start) < ms)
-		continue ;
+	{
+		LOCK(&philo->ccu->global_l);
+		if (!philo->ccu->all_alive)
+			return (UNLOCK(&philo->ccu->global_l), false);
+		UNLOCK(&philo->ccu->global_l);
+	}
+	return (true);
 }
 
 bool	check_alive(t_philo *philo, char flag)

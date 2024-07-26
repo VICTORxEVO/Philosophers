@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:54:19 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:54:20 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:06:58 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	*life(void *data)
 		}
 		if (!sleep_think(philo))
 			break ;
-		usleep_v2((philo->ccu->t_death - (get_time() - philo->last_meal)) / 2);
+		if (usleep_v2((philo->ccu->t_death - (get_time() - philo->last_meal))
+				/ 2, philo))
+			break ;
 	}
 	return (NULL);
 }
