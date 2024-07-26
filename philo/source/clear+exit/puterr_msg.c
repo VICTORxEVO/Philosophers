@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   puterr_msg.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/26 10:53:09 by ysbai-jo          #+#    #+#             */
+/*   Updated: 2024/07/26 10:53:10 by ysbai-jo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	puterr_msg2(t_err *err, char *str, char flag)
@@ -7,7 +19,7 @@ void	puterr_msg2(t_err *err, char *str, char flag)
 	else if (flag == 'I')
 		err->err_str = ft_strjoin(str, ": argument must be a number");
 	else
-	err->err_str = ft_strdup("pthread: unable to join \
+		err->err_str = ft_strdup("pthread: unable to join \
             or detach a thread !");
 }
 
