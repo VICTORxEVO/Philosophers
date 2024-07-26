@@ -6,23 +6,25 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:53:04 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:53:05 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:50:04 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	destroy_mtx(t_all *ccu)
+static void	destroy_mtx(t_all *ccu)
 {
 	int	i;
 
 	i = -1;
-	while (++i < ccu->n_philo)
-		DSTR(&ccu->forks[i]);
-	DSTR(&ccu->global_l);
-	if (ccu->n_meals != -1)
-		DSTR(&ccu->meal_l);
-	return (true);
+	if (ccu->philos)
+	{
+		while (++i < ccu->n_philo)
+			DSTR(&ccu->forks[i]);
+		DSTR(&ccu->global_l);
+		if (ccu->n_meals != -1)
+			DSTR(&ccu->meal_l);
+	}
 }
 
 bool	destroy(t_all *ccu)
@@ -31,8 +33,7 @@ bool	destroy(t_all *ccu)
 
 	if (ccu->err.err_str)
 		free(ccu->err.err_str);
-	if (!destroy_mtx(ccu))
-		return (false);
+	destroy_mtx(ccu);
 	if (ccu->forks)
 		free(ccu->forks);
 	i = -1;
