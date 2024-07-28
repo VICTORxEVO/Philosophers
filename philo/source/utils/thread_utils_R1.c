@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:27 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 17:45:15 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:11:48 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	usleep_v2(size_t ms, t_philo *philo)
 		if (!philo->ccu->all_alive)
 			return (UNLOCK(&philo->ccu->global_l), false);
 		UNLOCK(&philo->ccu->global_l);
+		usleep(500);
 	}
 	return (true);
 }
