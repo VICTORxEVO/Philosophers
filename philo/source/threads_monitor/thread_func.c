@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:54:19 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/28 15:45:15 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:20:41 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	*life(void *data)
 		return (NULL);
 	while (true)
 	{
+		if (!eat(philo))
+			break ;
+		if (philo->ccu->n_meals != -1)
+		if (!sleep_think(philo))
+			break ;
 		if (philo->ccu->n_meals != -1)
 		{
 			LOCK(&philo->ccu->meal_l);
@@ -28,11 +33,6 @@ void	*life(void *data)
 				return (UNLOCK(&philo->ccu->meal_l), NULL);
 			UNLOCK(&philo->ccu->meal_l);
 		}
-		if (!eat(philo))
-			break ;
-		if (philo->ccu->n_meals != -1)
-		if (!sleep_think(philo))
-			break ;
 		if (!usleep_v2((philo->ccu->t_death - (get_time() - philo->last_meal))
 				/ 2, philo))
 			break ;

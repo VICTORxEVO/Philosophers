@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:55:29 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/28 15:44:33 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:17:35 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ bool	eat(t_philo *philo)
 	if (philo->ccu->n_meals != -1)
 	{
 		LOCK(&philo->ccu->meal_l);
-		if (philo->finished)
-			return (UNLOCK(&philo->ccu->meal_l), NULL);
 		philo->meal++;
 		UNLOCK(&philo->ccu->meal_l);
 	}
