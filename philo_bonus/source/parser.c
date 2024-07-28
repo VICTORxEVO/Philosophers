@@ -10,8 +10,8 @@ static bool init(char *av[], t_all *ccu)
     ccu->n_meals = -1;
     if (ccu->n_philo < 1)
         return (puterr_msg(&ccu->err, 'P'), false);
-    // if (ccu->n_philo > 200)
-    //     return (puterr_msg(&ccu->err, 'L'), false);
+    if (ccu->n_philo > 200)
+        return (puterr_msg(&ccu->err, 'L'), false);
     if (ccu->t_death < 1)
         return (puterr_msg(&ccu->err, 'D'), false);
     if (ccu->t_eat < 1)
