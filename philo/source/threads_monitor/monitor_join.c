@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:54:17 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:55:01 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:23:51 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static bool	philo_parent(t_all *ccu)
 				(LOCK(&ccu->meal_l), meal_action(ccu, i, &all_eat),
 					UNLOCK(&ccu->meal_l));
 			if (all_eat == ccu->n_philo)
+			{
+				printf("all_eat -> %d\n", all_eat);
 				return (true);
+			}
 		}
 		i = -1;
 	}
