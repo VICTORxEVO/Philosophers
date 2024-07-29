@@ -17,7 +17,7 @@ void    *philo_parent(void *data)
         if (philo->ccu->n_meals != -1)
         {
             LOCK(philo->ccu->meal_l);
-            if (philo->meal == philo->ccu->n_meals)
+            if (philo->meal >= philo->ccu->n_meals)
             {
                 philo->finished = true;
                 return (UNLOCK(philo->ccu->meal_l), NULL);
