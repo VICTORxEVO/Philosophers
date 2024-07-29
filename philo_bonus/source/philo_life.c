@@ -1,23 +1,5 @@
 #include "philo_bonus.h"
 
-void    *philo_hunger(void *data)
-{
-    t_philo *philo;
-
-    philo = (t_philo *)data;
-    while (true)
-    {
-        LOCK(philo->ccu->meal_l);
-        if (philo->meal >= philo->ccu->n_meals)
-        {
-            philo->finished = true;
-            return (UNLOCK(philo->ccu->meal_l), NULL);
-        }
-        UNLOCK(philo->ccu->meal_l);
-    }
-    return (NULL);
-}
-
 void    *philo_parent(void *data)
 {
     t_philo *philo;
@@ -32,6 +14,16 @@ void    *philo_parent(void *data)
             exit(1);
         }
         UNLOCK(philo->ccu->pd_l);
+        if (philo->ccu->n_meals != -1)
+        {
+            LOCK(philo->ccu->meal_l);
+            if (philo->meal == philo->ccu->n_meals)
+            {
+                philo->finished = true;
+                return (UNLOCK(philo->ccu->meal_l), NULL);
+            }
+            UNLOCK(philo->ccu->meal_l);
+        }
     }
     return (NULL);
 }

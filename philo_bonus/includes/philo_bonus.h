@@ -114,7 +114,6 @@ typedef struct s_philo
     int meal;
     size_t  last_meal;
     pthread_t   *t_parent;
-    pthread_t   *t_hunger;
     bool    finished;
     struct s_all *ccu;
 }       t_philo;
@@ -143,7 +142,6 @@ typedef struct s_all
 //threads function
 void    *life(void *philo);
 void    *philo_parent(void *philo);
-void    *philo_hunger(void *data);
 
 //printing function
 //'E' for eating 'S' for sleaping 'T' for thinking
@@ -173,6 +171,7 @@ void    destroy(t_all *ccu);
 int     exit_v2(t_all *ccu);
 void    puterr_msg(t_err *err, char flag);
 void    puterr_msg2(t_err *err, char *str, char flag);
+void    destroy_philos(t_philo *philo);
 
 
 

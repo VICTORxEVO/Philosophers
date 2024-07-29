@@ -12,16 +12,11 @@ void    init_philo_needs(t_philo *philo)
         (puterr_msg(&philo->ccu->err, 'M'), exit(1));
     if (philo->ccu->n_meals != -1)
     {
-        philo->t_hunger = malloc(sizeof(pthread_t));
-        if (!philo->t_hunger)
-            (puterr_msg(&philo->ccu->err, 'M'), exit_v2(philo->ccu), exit(1));
         philo->ccu->meal_l = sem_open(MEAL_SM, 0);
         if (philo->ccu->meal_l == SEM_FAILED)
             (puterr_msg(&philo->ccu->err, 's'), exit_v2(philo->ccu), exit(1));
-        pthread_create(philo->t_hunger, NULL, philo_hunger, philo);
     }
 }
-
 
 void    special_philo(t_philo *philo)
 {
@@ -53,7 +48,7 @@ bool    sleep_think(t_philo *philo)
     {
         LOCK(philo->ccu->meal_l);
         if (philo->finished)
-            (UNLOCK(philo->ccu->meal_l), exit(0));
+            (UNLOCK(philo->ccu->meal_l),destroy_philos(philo));
         UNLOCK(philo->ccu->meal_l);
     }
     printt(philo, 'S');
