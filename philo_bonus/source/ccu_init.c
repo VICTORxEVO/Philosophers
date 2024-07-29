@@ -31,7 +31,6 @@ bool	ccu_init(t_all *ccu)
 	{
 		ccu->philos[i].ccu = ccu;
 		ccu->philos[i].id = i + 1;
-		ccu->philos[i].last_meal = get_time();
 	}
 	return (true);
 }

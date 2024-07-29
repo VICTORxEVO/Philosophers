@@ -15,7 +15,10 @@ int main(int ac, char *av[])
 		if (ccu->pids[i]  < 0)
 			return (puterr_msg(&ccu->err, 'f'), exit_v2(ccu));
 		else if (ccu->pids[i] == CHILD)
+		{
+			ccu->philos[i].last_meal = get_time();
 			life(&ccu->philos[i]);
+		}
 	}
 	parent_action(ccu);
 	return 0;
