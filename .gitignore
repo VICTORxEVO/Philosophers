@@ -12,6 +12,8 @@
 .vscode/
 philo/philo
 philo_bonus/philo_bonus
+philo/objects/
+philo_bonus/objects/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

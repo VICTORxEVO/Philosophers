@@ -6,19 +6,11 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:53:47 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 20:07:57 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:07:04 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// static bool	create_threads(t_philo *philo)
-// {
-// 	philo->last_meal = get_time();
-// 	if (pthread_create(philo->t, (void *)0, life, philo) != 0)
-// 		return (puterr_msg(&philo->ccu->err, 'T'), false);
-// 	return (true);
-// }
 
 static bool	init_philo(t_philo *philo, int i, t_all *ccu)
 {
@@ -80,7 +72,8 @@ bool	ccu_init(t_all *ccu)
 	while (++i < ccu->n_philo)
 	{
 		ccu->philos[i].last_meal = get_time();
-		if (pthread_create(ccu->philos[i].t, (void *)0, life, &ccu->philos[i]) != 0)
+		if (pthread_create(ccu->philos[i].t, (void *)0, life,
+				&ccu->philos[i]) != 0)
 			return (puterr_msg(&ccu->err, 'T'), false);
 	}
 	return (true);
