@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:12:57 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 09:32:09 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:23:09 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	usleep_v2(size_t ms)
 
 	start = get_time();
 	while ((get_time() - start) < ms)
-		usleep(500);
+		usleep(400);
 }
