@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:12:57 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 10:23:09 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:43:24 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ size_t	get_time(void)
 
 size_t	get_curr_time(t_philo *philo)
 {
-	size_t	time;
-
-	time = get_time() - philo->ccu->creation_t;
-	return (time);
+	return (get_time() - philo->ccu->creation_t);
 }
 
 void	usleep_v2(size_t ms)

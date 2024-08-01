@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:29:24 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 09:31:01 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:55:40 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool	ccu_init(t_all *ccu)
 	int	i;
 
 	ccu->philos = ft_calloc(ccu->n_philo, sizeof(t_philo));
-	ccu->pids = malloc(sizeof(int) * ccu->n_philo);
+	ccu->pids = malloc(sizeof(pid_t) * ccu->n_philo);
 	if (!ccu->philos || !ccu->pids)
 		return (false);
 	init_sem(ccu);
@@ -100,6 +100,9 @@ bool	ccu_init(t_all *ccu)
 	{
 		ccu->philos[i].ccu = ccu;
 		ccu->philos[i].id = i + 1;
+		ccu->philos[i].t_parent = malloc(sizeof(pthread_t));
+		if (!ccu->philos[i].t_parent)
+			return (puterr_msg(&ccu->err, 'M'), false);
 	}
 	return (true);
 }
