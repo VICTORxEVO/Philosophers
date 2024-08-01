@@ -19,18 +19,19 @@ SRC_DIR := source
 OBJ_DIR := objects
 
 # Source and Object Files
-SRC := ./source/parser.c ./source/ccu_init.c ./source/clear+exit/puterr_msg.c ./source/clear+exit/destroy.c \
+SRC := ./source/threads+procs/philo_life.c ./source/clear+exit/puterr_msg.c ./source/clear+exit/destroy.c \
 	./source/clear+exit/exit_v2.c ./source/philo_bonus.c ./source/external/ft_isdigit.c ./source/external/ft_memcpy.c \
 	./source/external/ft_calloc.c ./source/external/ft_strlen.c ./source/external/ft_atoi.c ./source/external/ft_strdup.c \
 	./source/external/puterr.c ./source/external/ft_strlcpy.c ./source/external/ft_bzero.c ./source/external/ft_strjoin.c \
-	./source/utils/printt.c ./source/utils/get_time.c ./source/utils/philo_utils.c ./source/utils/philo_utils_R1.c \
-	./source/utils/usleep_v2.c ./source/parent_action.c ./source/philo_life.c
+	./source/utils/printt.c ./source/utils/time.c ./source/utils/philo_utils.c ./source/utils/philo_utils_R1.c \
+	./source/getting_started/starter.c
+
 
 
 OBJ := $(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(SRC)))
 
 #include header
-INC= -I./includes
+INC := -I./includes
 
 #debuging
 ifeq ($(DEBUG), GDB)
@@ -46,9 +47,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		@$(CCF) $(OBJ) $(INC) -o $@
-		@echo "compiling"
 		@sleep 0.5
-		@echo "$(NAME) is ready"
+		@echo  "\n$(GREEN)$(NAME) is ready$(RESET)"
 
 
 $(OBJ_DIR)/%.o: $(SRC)
@@ -59,12 +59,14 @@ $(OBJ_DIR)/%.o: $(SRC)
 
 clean:
 		@rm -rf $(OBJ_DIR)
-		@echo "cleaning..."
+		@echo  "$(GREEN)cleaning...$(RESET)"
+		@sleep 0.2
 
 
 fclean: clean
 		@rm -f $(NAME)
-		@echo "cleaning program..."
+		@echo "$(GREEN)cleaning up program...$(RESET)"
+		@sleep 0.19
 
 
 re: fclean all

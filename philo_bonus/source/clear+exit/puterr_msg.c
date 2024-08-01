@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   puterr_msg.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/01 09:12:36 by ysbai-jo          #+#    #+#             */
+/*   Updated: 2024/08/01 09:12:38 by ysbai-jo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 
 void	puterr_msg2(t_err *err, char *str, char flag)
@@ -8,7 +20,7 @@ void	puterr_msg2(t_err *err, char *str, char flag)
 		err->err_str = ft_strjoin(str, ": argument must be a number");
 }
 
-static void puterr_msg_extra(t_err *err, char flag)
+static void	puterr_msg_extra(t_err *err, char flag)
 {
 	if (flag == 's')
 		err->err_str = ft_strdup("semaphore: creation failed !");
