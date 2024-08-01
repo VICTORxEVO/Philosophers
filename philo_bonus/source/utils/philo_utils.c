@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:13:08 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 10:22:33 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/01 10:30:53 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	special_philo(t_philo *philo)
 {
 	if (philo->ccu->n_philo == 1)
 		(printt(philo, 'F'), usleep_v2(philo->ccu->t_death + 20));
-	// if (philo->id % 2)
-	// 	usleep(2);
+	if (philo->id % 2)
+		usleep(2);
 }
 
 bool	eat(t_philo *philo)
