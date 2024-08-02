@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:13:08 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 17:52:52 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:15:12 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ bool	sleep_think(t_philo *philo)
 {
 	if (philo->ccu->n_meals != -1)
 	{
+		usleep(2);
 		LOCK(philo->ccu->meal_l);
 		if (philo->finished)
 			(UNLOCK(philo->ccu->meal_l), destroy_philos(philo));

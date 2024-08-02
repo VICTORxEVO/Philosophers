@@ -38,8 +38,10 @@ INC= -I./includes
 #debuging
 ifeq ($(DEBUG), GDB)
 	CCF += -g
+else ifeq ($(DEBUG), THREAD)
+	CCF += -g3 -fsanitize=thread
 else ifeq ($(DEBUG), ALL)
-	ccf += -g3 -fsanitize=address
+	CCF += -g3 -fsanitize=address
 endif
 
 .PHONY: all clean fclean re clear

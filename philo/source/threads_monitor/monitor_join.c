@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:54:17 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/30 18:07:21 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:24:49 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static bool	philo_parent(t_all *ccu)
 			}
 		}
 		i = -1;
+		usleep(2);
 	}
 	return (true);
 }

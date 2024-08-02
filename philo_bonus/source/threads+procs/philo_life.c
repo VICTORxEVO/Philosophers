@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:29:17 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 17:55:00 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:20:53 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ void	*philo_parent(void *data)
 	{
 		usleep(2);
 		LOCK(philo->ccu->pd_l);
-		if ((size_t)(get_time()
-				- philo->last_meal) > (size_t)philo->ccu->t_death)
+		if ((get_time() - philo->last_meal) > (size_t)philo->ccu->t_death)
 			(printt(philo, 'D'), exit(1));
 		UNLOCK(philo->ccu->pd_l);
 		if (philo->ccu->n_meals != -1)

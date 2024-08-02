@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:12:24 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/01 17:50:54 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/02 09:21:54 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ void	destroy(t_all *ccu)
 	}
 	if (ccu->philos)
 		free(ccu->philos);
+	if (ccu->pids)
+		free(ccu->pids);
 	free(ccu);
 }
