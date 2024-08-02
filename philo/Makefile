@@ -51,9 +51,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		@$(CCF) $(OBJ) $(INC) -o $@
-		@echo "compiling"
 		@sleep 0.5
-		@echo "$(NAME) is ready"
+		@echo  "\n$(GREEN)$(NAME) is ready$(RESET)"
 
 $(OBJ_DIR)/%.o: $(SRC)
 		@mkdir -p $(OBJ_DIR)
@@ -64,12 +63,14 @@ $(OBJ_DIR)/%.o: $(SRC)
 
 clean:
 		@rm -rf $(OBJ_DIR)
-		@echo "cleaning..."
+		@echo  "$(GREEN)cleaning...$(RESET)"
+		@sleep 0.2
 
 
 fclean: clean
 		@rm -f $(NAME)
-		@echo "cleaning program..."
+		@echo "$(GREEN)cleaning up program...$(RESET)"
+		@sleep 0.19
 
 
 re: fclean all
