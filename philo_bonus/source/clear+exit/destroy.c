@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 09:12:24 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/08/02 09:21:54 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:35:48 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	destroy_philos(t_philo *philo)
 		sem_close(ccu->meal_l);
 	free(philo->t_parent);
 	free(philo->ccu->philos);
+	free(ccu->pids);
 	free(ccu);
 	exit(0);
 }
 
 void	destroy(t_all *ccu)
 {
-	int i;
+	int	i;
 
 	if (ccu->err.err_str)
 		free(ccu->err.err_str);
