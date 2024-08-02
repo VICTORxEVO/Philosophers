@@ -6,7 +6,7 @@
 /*   By: ysbai-jo <ysbai-jo@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 10:53:49 by ysbai-jo          #+#    #+#             */
-/*   Updated: 2024/07/26 10:54:00 by ysbai-jo         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:45:15 by ysbai-jo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	init(char *av[], t_all *ccu)
 	ccu->n_meals = -1;
 	if (ccu->n_philo < 1)
 		return (puterr_msg(&ccu->err, 'P'), false);
-	if (ccu->n_philo > 200)
+	if (ccu->n_philo < 1)
 		return (puterr_msg(&ccu->err, 'L'), false);
 	if (ccu->t_death < 1)
 		return (puterr_msg(&ccu->err, 'D'), false);
